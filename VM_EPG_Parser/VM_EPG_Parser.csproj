@@ -1,0 +1,26 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+	<AssemblySearchPaths>{HintPathFromItem};{RawFileName}</AssemblySearchPaths>
+</PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MySql.Data.EntityFrameworkCore" Version="8.0.22" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Epg.Configuration.Manager\Epg.Configuration.Manager.csproj" />
+    <ProjectReference Include="..\Epg.File.Manager\Epg.File.Manager.csproj" />
+    <ProjectReference Include="..\Epg.Serialization\Epg.Serialization.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Config\EPG_Parser_Config.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+
+</Project>

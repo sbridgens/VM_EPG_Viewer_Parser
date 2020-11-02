@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<EPG_Parser_Config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <!-- Directory Settings -->
+  <LocalWorkingDirectory>D:\VmEpgTesting\temp\</LocalWorkingDirectory>
+  <!-- if false downloaded file will be deleted once parsed else moved to archive location-->
+  <EpgArchive enableArchive="true">D:\VmEpgTesting\Archive\</EpgArchive>
+  <FailedToParseDirectory>D:\VmEpgTesting\Failed\</FailedToParseDirectory>
+
+  <!-- SFTP Settings -->
+  <SftpHost>airflow-sftp.horizongo.eu</SftpHost>
+  <SftpPort>22</SftpPort>
+  <SftpKeyFile>D:\VmEpgTesting\.ssh\id_rsa.ppk</SftpKeyFile>
+  <SshHostKeyFingerprint>ssh-rsa 2048 ad:47:1c:0c:cf:9b:7c:a6:8d:af:7b:2b:69:e5:4b:57</SshHostKeyFingerprint>
+  <SftpUserName>uk_hzn4</SftpUserName>
+  <SftpKeyOrUserPassword></SftpKeyOrUserPassword>
+  <SftpRoot>/airflow-country-access/uk_hzn4/Linear/TVA/uk_hzn4</SftpRoot>
+  
+  <!-- Proxy Config-->
+  <ProxyInfo useProxy="false">
+    <!-- Type Values: SOCKS4, SOCKS5, HTTP, TELNET_SCP, LOCAL_SCP-->
+    <ProxyType>HTTP</ProxyType>
+    <ProxyHost></ProxyHost>
+    <ProxyPort></ProxyPort>
+    <ProxyUsername></ProxyUsername>
+    <ProxyPassword></ProxyPassword>
+  </ProxyInfo>
+  <DownloadFilesOfType>.gz</DownloadFilesOfType>
+
+
+  <!-- DB Settings -->
+  <DbHost>localhost</DbHost>
+  <DbPort>3306</DbPort>
+  <DbUser>vmepg</DbUser>
+  <DbPass>97R*0I*h!@ijmoLcGx6#</DbPass>
+  <DatabaseName>vm_epg_data</DatabaseName>
+</EPG_Parser_Config>
