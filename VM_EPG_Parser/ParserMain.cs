@@ -1,14 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
+using System.Diagnostics.CodeAnalysis;
 using Epg.Configuration.Manager.Concrete;
 using Epg.Configuration.Manager.Schema.VM_EPG_Parser;
-using Epg.File.Manager.Concrete.SftpManagement;
-using Epg.File.Manager.Enum;
 using Epg.Serialization.Concrete;
 using VM_EPG_Parser.WorkflowItems;
-using WinSCP;
 
 namespace VM_EPG_Parser
 {
@@ -35,25 +31,19 @@ namespace VM_EPG_Parser
 
             Console.WriteLine("Loading Config file");
             var xmlConfigSerializer = new ConfigSerializationHelper<EPG_Parser_Config>();
-            if (!xmlConfigSerializer.LoadConfigurationFile("./Config/EPG_Parser_Config.xml"))
-            {
-                Console.WriteLine("Failed to Load config file?");
-            }
-            else
-            {
-                Console.WriteLine("Successfully Loaded Configuration File");
-
-            }
+            Console.WriteLine(!xmlConfigSerializer.LoadConfigurationFile("./Config/EPG_Parser_Config.xml")
+                ? "Failed to Load config file?"
+                : "Successfully Loaded Configuration File");
 
 
             Console.WriteLine($"Connecting to FTP Server: {EPG_Parser_Config.SftpHost}");
 
             var sftpOperations = new SftpOperations();
-            if(sftpOperations.RetrieveLatestEpgFile());
+            if(sftpOperations.RetrieveLatestEpgFile())
             {
                 Console.WriteLine("SFTP Operations completed successfully");
             }
-
+            
         }
     }
 }

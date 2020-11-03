@@ -8,11 +8,7 @@ namespace Epg.File.Manager.Abstract
 {
     public interface ISftpClientInterface
     {
-        bool UseProxy { get; set; }
-
         FileInfo EpgTarBall { get; set; }
-
-        string SftpAllowedHostFingerprint { get; set; }
 
         SessionOptions SftpOptions { get; set; }
 
