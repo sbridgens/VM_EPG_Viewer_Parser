@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Diagnostics;
-using System.Diagnostics.CodeAnalysis;
 using Epg.Configuration.Manager.Concrete;
 using Epg.Configuration.Manager.Schema.VM_EPG_Parser;
 using Epg.Serialization.Concrete;
@@ -39,10 +38,16 @@ namespace VM_EPG_Parser
             Console.WriteLine($"Connecting to FTP Server: {EPG_Parser_Config.SftpHost}");
 
             var sftpOperations = new SftpOperations();
-            if(sftpOperations.RetrieveLatestEpgFile())
-            {
-                Console.WriteLine("SFTP Operations completed successfully");
-            }
+            if (!sftpOperations.RetrieveLatestEpgFile()) 
+                return;
+
+
+            Console.WriteLine("SFTP Operations completed successfully");
+            EpgArchiveOperations archiveOperations = new EpgArchiveOperations();
+            Console.WriteLine(
+                archiveOperations.ProcessEpgArchive(sftpOperations.LatestEpg.FullName) 
+                ? "Epg file Successfully unpacked" 
+                : "Operations Failed during unpacking of Epg File");
         }
     }
 }

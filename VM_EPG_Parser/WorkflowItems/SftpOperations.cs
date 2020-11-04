@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using Epg.Configuration.Manager.Schema.VM_EPG_Parser;
 using Epg.File.Manager.Concrete.SftpManagement;
 using Epg.File.Manager.Enum;
@@ -8,6 +9,7 @@ namespace VM_EPG_Parser.WorkflowItems
 {
     public class SftpOperations
     {
+        public FileInfo LatestEpg { get; set; }
         public bool RetrieveLatestEpgFile()
         {
             var sftpClient = new SftpClientManager
@@ -42,6 +44,8 @@ namespace VM_EPG_Parser.WorkflowItems
                 EPG_Parser_Config.DownloadFilesOfType,
                 localDownloadDirectory: EPG_Parser_Config.EpgDownloadDirectory,
                 archiveDirectory: EpgArchive.EpgArchiveDirectory);
+
+            LatestEpg = sftpClient.EpgTarBall;
 
             return sftpClient.SftpTransferOperationResult;
         }
