@@ -43,7 +43,6 @@ namespace VM_EPG_Parser
             {
                 Console.WriteLine("SFTP Operations completed successfully");
             }
-            
         }
     }
 }

@@ -12,9 +12,7 @@ namespace Epg.File.Manager.Concrete.SftpManagement
         public SessionOptions SftpOptions { get; set; }
         public Session SftpSession { get; set; }
         public bool SftpTransferOperationResult { get; set; }
-
         private RemoteDirectoryInfo SftpDirectoryInfo { get; set; }
-
         private RemoteFileInfo LatestEpgPackage { get; set; }
 
         private RemoteFileInfo MostRecentEpgFile()
@@ -51,8 +49,7 @@ namespace Epg.File.Manager.Concrete.SftpManagement
 
             if (System.IO.File.Exists(localfile) || System.IO.File.Exists(archivedFile))
             {
-                Console.WriteLine($"Epg file: {LatestEpgPackage.Name} has previously been downloaded.");
-                SftpTransferOperationResult = true;
+                Console.WriteLine($"Epg file: {LatestEpgPackage.Name} has previously been downloaded.");;
             }
             else
             {
@@ -70,6 +67,17 @@ namespace Epg.File.Manager.Concrete.SftpManagement
                     throw new Exception($"Failed to download file: {operationResult.Failures[0]}");
                 }
             }
+        }
+
+        private void CleanUp()
+        {
+            if (SftpSession.Opened)
+            {
+                SftpSession.Close();
+            }
+            //free up unused resources
+            SftpOptions = null;
+            SftpSession?.Dispose();
         }
 
         public void ConnectAndDownloadEpgData(string sftpRootDirectory, string remoteFileExtensionToCheck, string localDownloadDirectory, string archiveDirectory)
@@ -100,13 +108,7 @@ namespace Epg.File.Manager.Concrete.SftpManagement
             }
             finally
             {
-                if (SftpSession.Opened)
-                {
-                    SftpSession.Close();
-                }
-                //free up unused resources
-                SftpOptions = null;
-                SftpSession.Dispose();
+                CleanUp();
             }
         }
     }

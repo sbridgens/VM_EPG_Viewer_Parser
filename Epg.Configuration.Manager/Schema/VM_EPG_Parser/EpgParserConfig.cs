@@ -42,6 +42,9 @@ namespace Epg.Configuration.Manager.Schema.VM_EPG_Parser
 		[XmlElement(ElementName = "LocalWorkingDirectory")]
 		public static string LocalWorkingDirectory { get; set; }
 
+		[XmlElement(ElementName = "EpgDownloadDirectory")]
+		public static string EpgDownloadDirectory { get; set; }
+		
 		[XmlElement(ElementName = "EpgArchive")]
 		public EpgArchive EpgArchive { get; set; }
 		[XmlElement(ElementName = "FailedToParseDirectory")]
@@ -58,7 +61,6 @@ namespace Epg.Configuration.Manager.Schema.VM_EPG_Parser
 
 		[XmlElement(ElementName = "SshHostKeyFingerprint")]
 		public static string SshHostKeyFingerprint { get; set; }
-
 
 		[XmlElement(ElementName = "SftpUserName")]
 		public static string SftpUserName { get; set; }

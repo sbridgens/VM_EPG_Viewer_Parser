@@ -1,7 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <EPG_Parser_Config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <!-- Directory Settings -->
-  <LocalWorkingDirectory>D:\VmEpgTesting\temp\</LocalWorkingDirectory>
+  <!-- Working directory where active epg file is stored and used -->
+  <LocalWorkingDirectory>D:\VmEpgTesting\EpgActive\</LocalWorkingDirectory>
+  <!-- Download Directory -->
+  <EpgDownloadDirectory>D:\VmEpgTesting\temp\</EpgDownloadDirectory>
   <!-- if false downloaded file will be deleted once parsed else moved to archive location-->
   <EpgArchive enableArchive="true">D:\VmEpgTesting\Archive\</EpgArchive>
   <FailedToParseDirectory>D:\VmEpgTesting\Failed\</FailedToParseDirectory>

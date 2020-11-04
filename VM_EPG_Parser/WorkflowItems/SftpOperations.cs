@@ -40,7 +40,7 @@ namespace VM_EPG_Parser.WorkflowItems
             sftpClient.ConnectAndDownloadEpgData(
                 sftpRootDirectory: EPG_Parser_Config.SftpRoot,
                 EPG_Parser_Config.DownloadFilesOfType,
-                EPG_Parser_Config.LocalWorkingDirectory,
+                localDownloadDirectory: EPG_Parser_Config.EpgDownloadDirectory,
                 archiveDirectory: EpgArchive.EpgArchiveDirectory);
 
             return sftpClient.SftpTransferOperationResult;
