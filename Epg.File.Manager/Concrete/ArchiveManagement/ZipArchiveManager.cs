@@ -9,12 +9,14 @@ using ICSharpCode.SharpZipLib.Tar;
 
 namespace Epg.File.Manager.Concrete.ArchiveManagement
 {
-    public class ZipArchiveManager : IZipArchiveInterface
+    public class ZipArchiveManager : IZipArchiveInterface, IDisposable
     {
         public string FullEpgPackagePath { get; set; }
         public string OutputDirectoryPath { get; set; }
         public string OutputEpgFile { get; set; }
+        public string EpgArchiveDirectory { get; set; }
         public bool OperationsSuccessful { get; set; }
+        public bool CanArchive { get; set; }
 
         private readonly byte[] streamBuffer = new byte[4096];
         private Stream InputFileStream { get; set; }
@@ -23,6 +25,28 @@ namespace Epg.File.Manager.Concrete.ArchiveManagement
         public ZipArchiveManager()
         {
             OperationsSuccessful = false;
+        }
+
+        public void CleanExtractionDirectory()
+        {
+            var dirInfo = new DirectoryInfo(OutputDirectoryPath);
+
+            foreach (var finfo in dirInfo.GetFiles())
+            {
+                if(CanArchive)
+                {
+                    var archiveFile = Path.Combine(EpgArchiveDirectory, finfo.Name);
+                    if (System.IO.File.Exists(archiveFile))
+                    {
+                        System.IO.File.Move(archiveFile, Path.Combine(EpgArchiveDirectory, $"[Duplicate_{DateTime.Now.ToString("ddMyyyTHH-mm-ss")}]_{finfo.Name}"));
+                    }
+                    finfo.MoveTo(archiveFile);
+                }
+                else
+                {
+                    finfo.Delete();
+                }
+            }
         }
 
         public void ExtractZipFile()
@@ -124,5 +148,40 @@ namespace Epg.File.Manager.Concrete.ArchiveManagement
                 throw;
             }
         }
+
+
+        #region IDisposable
+
+        // Flag: Has Dispose already been called?
+        private bool disposed;
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        // Protected implementation of Dispose pattern.
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposed)
+                return;
+
+            if (disposing)
+            {
+                InputFileStream?.Dispose();
+                OutputFileStream?.Dispose();
+            }
+
+
+            disposed = true;
+        }
+
+        ~ZipArchiveManager()
+        {
+            Dispose(false);
+        }
+
+        #endregion
     }
 }

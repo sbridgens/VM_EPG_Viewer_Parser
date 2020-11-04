@@ -40,6 +40,10 @@ namespace VM_EPG_Parser.WorkflowItems
                     var zipManager = new ZipArchiveManager();
                     zipManager.OutputDirectoryPath = EPG_Parser_Config.LocalWorkingDirectory;
                     zipManager.FullEpgPackagePath = epgArchive;
+                    zipManager.CanArchive = EpgArchive.EnableArchive;
+                    zipManager.EpgArchiveDirectory = EpgArchive.EpgArchiveDirectory;
+
+                    zipManager.CleanExtractionDirectory();
 
                     switch (archiveExtension)
                     {

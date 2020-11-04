@@ -9,7 +9,9 @@ namespace Epg.File.Manager.Abstract
         string FullEpgPackagePath { get; set; }
         string OutputDirectoryPath { get; set; }
         string OutputEpgFile { get; set; }
+        string EpgArchiveDirectory { get; set; }
         bool OperationsSuccessful { get; set; }
+        bool CanArchive { get; set; }
         void ExtractZipFile();
         void ExtractGzipFile();
         void ExtractTarFile();
