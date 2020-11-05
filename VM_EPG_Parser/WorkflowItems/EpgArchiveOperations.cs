@@ -73,7 +73,7 @@ namespace VM_EPG_Parser.WorkflowItems
             finally
             {
                
-                ZipManager.Dispose();
+                
             }
             return false;
         }

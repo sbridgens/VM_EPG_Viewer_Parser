@@ -9,7 +9,7 @@ using ICSharpCode.SharpZipLib.Tar;
 
 namespace Epg.File.Manager.Concrete.ArchiveManagement
 {
-    public class ZipArchiveManager : IZipArchiveInterface, IDisposable
+    public class ZipArchiveManager : IZipArchiveInterface
     {
         public string FullEpgPackagePath { get; set; }
         public string OutputDirectoryPath { get; set; }
@@ -19,8 +19,6 @@ namespace Epg.File.Manager.Concrete.ArchiveManagement
         public bool CanArchive { get; set; }
 
         private readonly byte[] streamBuffer = new byte[4096];
-        private Stream InputFileStream { get; set; }
-        private Stream OutputFileStream { get; set; }
 
         public ZipArchiveManager()
         {
@@ -38,7 +36,7 @@ namespace Epg.File.Manager.Concrete.ArchiveManagement
                     var archiveFile = Path.Combine(EpgArchiveDirectory, finfo.Name);
                     if (System.IO.File.Exists(archiveFile))
                     {
-                        System.IO.File.Move(archiveFile, Path.Combine(EpgArchiveDirectory, $"[Duplicate_{DateTime.Now.ToString("ddMyyyTHH-mm-ss")}]_{finfo.Name}"));
+                        System.IO.File.Move(archiveFile, Path.Combine(EpgArchiveDirectory, $"[Duplicate_{DateTime.Now:ddMyyyTHH-mm-ss}]_{finfo.Name}"));
                     }
                     finfo.MoveTo(archiveFile);
                 }
@@ -53,8 +51,8 @@ namespace Epg.File.Manager.Concrete.ArchiveManagement
         {
             try
             {
-                using(InputFileStream = System.IO.File.OpenRead(FullEpgPackagePath))
-                using (var epgZip = new ZipFile(InputFileStream))
+                using(var inputFileStream = System.IO.File.OpenRead(FullEpgPackagePath))
+                using (var epgZip = new ZipFile(inputFileStream))
                 {
                     foreach (ZipEntry entry in epgZip)
                     {
@@ -63,14 +61,14 @@ namespace Epg.File.Manager.Concrete.ArchiveManagement
 
                         OutputEpgFile = Path.Combine(OutputDirectoryPath, entry.Name);
                         using (var zipStream = epgZip.GetInputStream(entry))
-                        using (OutputFileStream = System.IO.File.Create(OutputEpgFile))
+                        using (var outputFileStream = System.IO.File.Create(OutputEpgFile))
                         {
-                            StreamUtils.Copy(zipStream, OutputFileStream, streamBuffer);
+                            StreamUtils.Copy(zipStream, outputFileStream, streamBuffer);
                         }
                     }
                     epgZip.Close();
-                    InputFileStream.Close();
-                    OperationsSuccessful = true;
+                    inputFileStream.Close();
+                    OperationsSuccessful = System.IO.File.Exists(OutputEpgFile);
                 }
 
             }
@@ -85,19 +83,19 @@ namespace Epg.File.Manager.Concrete.ArchiveManagement
         {
             try
             {
-                using (InputFileStream = new FileStream(FullEpgPackagePath, FileMode.Open, FileAccess.Read))
-                using (var gzipStream = new GZipInputStream(InputFileStream))
+                using (var inputFileStream = System.IO.File.OpenRead(FullEpgPackagePath))
+                using (var gzipStream = new GZipInputStream(inputFileStream))
                 {
-                    OutputEpgFile = Path.Combine(OutputDirectoryPath,
-                        Path.GetFileNameWithoutExtension(FullEpgPackagePath));
+                    OutputEpgFile = Path.Combine(OutputDirectoryPath, Path.GetFileNameWithoutExtension(FullEpgPackagePath));
 
-                    using (OutputFileStream = System.IO.File.Create(OutputEpgFile))
+                    using (var outputFileStream = System.IO.File.Create(OutputEpgFile))
                     {
-                        StreamUtils.Copy(gzipStream, OutputFileStream, streamBuffer);
+                        OutputEpgFile = outputFileStream.Name;
+                        StreamUtils.Copy(gzipStream, outputFileStream, streamBuffer);
                     }
                     gzipStream.Close();
-                    InputFileStream.Close();
-                    OperationsSuccessful = true;
+                    inputFileStream.Close();
+                    OperationsSuccessful = System.IO.File.Exists(OutputEpgFile);
                 }
             }
             catch (Exception egzfException)
@@ -107,17 +105,31 @@ namespace Epg.File.Manager.Concrete.ArchiveManagement
             }
         }
 
+        private void ProcessTarInputStream(TarInputStream tarStream)
+        {
+            var entry = tarStream.GetNextEntry();
+            OutputEpgFile = Path.Combine(OutputDirectoryPath, entry.Name);
+            var outStream = new FileStream(OutputEpgFile, FileMode.CreateNew);
+            while (entry != null)
+            {
+                Console.WriteLine($"Extracting: {entry.Name} to {OutputEpgFile}");
+                tarStream.CopyEntryContents(outStream);
+                entry = tarStream.GetNextEntry();
+            }
+
+        }
+
         public void ExtractTarFile()
         {
             try
             {
-                using (InputFileStream = System.IO.File.OpenRead(FullEpgPackagePath))
+                using (var inputStream = System.IO.File.OpenRead(FullEpgPackagePath))
+                using (var tarStream = new TarInputStream(inputStream, Encoding.UTF8))
                 {
-                    var tarBall = TarArchive.CreateInputTarArchive(InputFileStream, Encoding.UTF8);
-                    tarBall.ExtractContents(OutputDirectoryPath);
-                    tarBall.Close();
-                    InputFileStream.Close();
-                    OperationsSuccessful = true;
+                    ProcessTarInputStream(tarStream);
+                    OperationsSuccessful = System.IO.File.Exists(OutputEpgFile);
+                    tarStream.Close();
+                    inputStream.Close();
                 }
             }
             catch (Exception etfException)
@@ -131,15 +143,16 @@ namespace Epg.File.Manager.Concrete.ArchiveManagement
         {
             try
             {
-                using (InputFileStream = System.IO.File.OpenRead(FullEpgPackagePath))
-                using (var gzipStream = new GZipInputStream(InputFileStream))
+                using (var inputStream = System.IO.File.OpenRead(FullEpgPackagePath))
+                using (var gzStream = new GZipInputStream(inputStream))
+                using (var tarStream = new TarInputStream(gzStream, Encoding.UTF8))
                 {
-                    var tarBall = TarArchive.CreateInputTarArchive(gzipStream, Encoding.UTF8);
-                    tarBall.ExtractContents(OutputDirectoryPath);
-                    tarBall.Close();
-                    gzipStream.Close();
-                    InputFileStream.Close();
-                    OperationsSuccessful = true;
+
+                    ProcessTarInputStream(tarStream);
+                    OperationsSuccessful = System.IO.File.Exists(OutputEpgFile);
+                    tarStream.Close();
+                    gzStream.Close();
+                    inputStream.Close();
                 }
             }
             catch (Exception etgfException)
@@ -148,40 +161,5 @@ namespace Epg.File.Manager.Concrete.ArchiveManagement
                 throw;
             }
         }
-
-
-        #region IDisposable
-
-        // Flag: Has Dispose already been called?
-        private bool disposed;
-
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-
-        // Protected implementation of Dispose pattern.
-        protected virtual void Dispose(bool disposing)
-        {
-            if (disposed)
-                return;
-
-            if (disposing)
-            {
-                InputFileStream?.Dispose();
-                OutputFileStream?.Dispose();
-            }
-
-
-            disposed = true;
-        }
-
-        ~ZipArchiveManager()
-        {
-            Dispose(false);
-        }
-
-        #endregion
     }
 }
