@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Text;
 using Epg.Configuration.Manager.Schema.VM_EPG_Parser;
 using Epg.File.Manager.Concrete.ArchiveManagement;
 
@@ -10,6 +8,9 @@ namespace VM_EPG_Parser.WorkflowItems
 {
     public class EpgArchiveOperations
     {
+        private ZipArchiveManager ZipManager { get; set; }
+        public string ExtractedEpgFile { get; set; }
+
         // Ordering of double extensions is important.
         private static readonly List<string> AllowedExtensions = new List<string>()
         {
@@ -37,37 +38,42 @@ namespace VM_EPG_Parser.WorkflowItems
                 if (!string.IsNullOrEmpty(archiveExtension))
                 {
                     Console.WriteLine("Unpacking EPG File");
-                    var zipManager = new ZipArchiveManager();
-                    zipManager.OutputDirectoryPath = EPG_Parser_Config.LocalWorkingDirectory;
-                    zipManager.FullEpgPackagePath = epgArchive;
-                    zipManager.CanArchive = EpgArchive.EnableArchive;
-                    zipManager.EpgArchiveDirectory = EpgArchive.EpgArchiveDirectory;
+                    ZipManager = new ZipArchiveManager();
+                    ZipManager.OutputDirectoryPath = EPG_Parser_Config.LocalWorkingDirectory;
+                    ZipManager.FullEpgPackagePath = epgArchive;
+                    ZipManager.CanArchive = EpgArchive.EnableArchive;
+                    ZipManager.EpgArchiveDirectory = EpgArchive.EpgArchiveDirectory;
 
-                    zipManager.CleanExtractionDirectory();
+                    ZipManager.CleanExtractionDirectory();
 
                     switch (archiveExtension)
                     {
                         case ".zip":
-                            zipManager.ExtractZipFile();
+                            ZipManager.ExtractZipFile();
                             break;
                         case ".gz":
-                            zipManager.ExtractGzipFile();
+                            ZipManager.ExtractGzipFile();
                             break;
                         case ".tar":
-                            zipManager.ExtractTarFile();
+                            ZipManager.ExtractTarFile();
                             break;
                         case ".tar.gz":
-                            zipManager.ExtractTarGzFile();
+                            ZipManager.ExtractTarGzFile();
                             break;
                     }
 
-                    return zipManager.OperationsSuccessful;
+                    return ZipManager.OperationsSuccessful;
                 }
             }
             catch (Exception e)
             {
                 Console.WriteLine(e);
                 throw;
+            }
+            finally
+            {
+               
+                ZipManager.Dispose();
             }
             return false;
         }

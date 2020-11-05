@@ -41,7 +41,7 @@ namespace VM_EPG_Parser
             if (!sftpOperations.RetrieveLatestEpgFile()) 
                 return;
 
-
+            //Need to capture epgfile here and dispose sftp resources
             Console.WriteLine("SFTP Operations completed successfully");
             EpgArchiveOperations archiveOperations = new EpgArchiveOperations();
             Console.WriteLine(

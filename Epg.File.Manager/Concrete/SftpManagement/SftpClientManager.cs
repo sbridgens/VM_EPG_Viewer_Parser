@@ -6,7 +6,7 @@ using WinSCP;
 
 namespace Epg.File.Manager.Concrete.SftpManagement
 {
-    public class SftpClientManager : ISftpClientInterface
+    public class SftpClientManager : ISftpClientInterface, IDisposable
     {
         public FileInfo EpgTarBall { get; set; }
         public SessionOptions SftpOptions { get; set; }
@@ -49,7 +49,7 @@ namespace Epg.File.Manager.Concrete.SftpManagement
 
             if (System.IO.File.Exists(localfile) || System.IO.File.Exists(archivedFile))
             {
-                Console.WriteLine($"Epg file: {LatestEpgPackage.Name} has previously been downloaded.");;
+                Console.WriteLine($"Epg file: {LatestEpgPackage.Name} has previously been downloaded.");
             }
             else
             {
@@ -77,7 +77,6 @@ namespace Epg.File.Manager.Concrete.SftpManagement
             }
             //free up unused resources
             SftpOptions = null;
-            SftpSession?.Dispose();
         }
 
         public void ConnectAndDownloadEpgData(string sftpRootDirectory, string remoteFileExtensionToCheck, string localDownloadDirectory, string archiveDirectory)
@@ -111,5 +110,38 @@ namespace Epg.File.Manager.Concrete.SftpManagement
                 CleanUp();
             }
         }
+
+        #region IDisposable
+
+        // Flag: Has Dispose already been called?
+        private bool disposed;
+
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        // Protected implementation of Dispose pattern.
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposed)
+                return;
+
+            if (disposing)
+            {
+                SftpSession?.Dispose();
+            }
+
+
+            disposed = true;
+        }
+
+        ~SftpClientManager()
+        {
+            Dispose(false);
+        }
+
+        #endregion
     }
 }
