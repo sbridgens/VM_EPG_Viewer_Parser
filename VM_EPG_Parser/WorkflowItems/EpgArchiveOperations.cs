@@ -70,11 +70,7 @@ namespace VM_EPG_Parser.WorkflowItems
                 Console.WriteLine(e);
                 throw;
             }
-            finally
-            {
-               
-                
-            }
+            
             return false;
         }
     }
