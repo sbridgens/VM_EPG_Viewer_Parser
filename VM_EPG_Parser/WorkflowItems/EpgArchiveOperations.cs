@@ -61,7 +61,7 @@ namespace VM_EPG_Parser.WorkflowItems
                             ZipManager.ExtractTarGzFile();
                             break;
                     }
-
+                    ExtractedEpgFile = ZipManager.OutputEpgFile;
                     return ZipManager.OperationsSuccessful;
                 }
             }

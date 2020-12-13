@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.IO;
 using Epg.Configuration.Manager.Concrete;
 using Epg.Configuration.Manager.Schema.VM_EPG_Parser;
 using Epg.Serialization.Concrete;
@@ -44,10 +45,18 @@ namespace VM_EPG_Parser
             //Need to capture epgfile here and dispose sftp resources
             Console.WriteLine("SFTP Operations completed successfully");
             EpgArchiveOperations archiveOperations = new EpgArchiveOperations();
-            Console.WriteLine(
-                archiveOperations.ProcessEpgArchive(sftpOperations.LatestEpg.FullName) 
-                ? "Epg file Successfully unpacked" 
-                : "Operations Failed during unpacking of Epg File");
+            bool isUnpackedSuccess = archiveOperations.ProcessEpgArchive(sftpOperations.LatestEpg.FullName);
+            if(isUnpackedSuccess)
+            {
+                Console.WriteLine("Epg file Successfully unpacked");
+                XmlSerializationManager<TVAMain> xmlSerializationManager = new XmlSerializationManager<TVAMain>();
+                string xmlInputData = File.ReadAllText(archiveOperations.ExtractedEpgFile);
+                TVAMain tVAMain = xmlSerializationManager.Read(xmlInputData);
+            }
+            else 
+            {
+                Console.WriteLine("Operations Failed during unpacking of Epg File");
+            }
         }
     }
 }
