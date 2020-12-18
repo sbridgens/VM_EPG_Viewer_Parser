@@ -9,7 +9,7 @@ using System.Xml.Serialization;
 [System.ComponentModel.DesignerCategoryAttribute("code")]
 [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "")]
 [System.Xml.Serialization.XmlRootAttribute(Namespace = "", IsNullable = false)]
-public partial class TVAMain
+public partial class TVAMainOld
 {
 
     private TVAMainProgramDescription programDescriptionField;

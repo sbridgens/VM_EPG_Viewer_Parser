@@ -7,8 +7,8 @@ namespace Epg.Entities.Concrete.XMLEntities
     /// <remarks/>
     [System.SerializableAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "urn:tva:metadata:2010")]
-    [System.Xml.Serialization.XmlRootAttribute(Namespace = "urn:tva:metadata:2010", IsNullable = false)]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "")]
+    [System.Xml.Serialization.XmlRootAttribute(Namespace = "", IsNullable = false)]
     public partial class TVAMain
     {
 
@@ -95,7 +95,7 @@ namespace Epg.Entities.Concrete.XMLEntities
     /// <remarks/>
     [System.SerializableAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "urn:tva:metadata:2010")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "")]
     public partial class TVAMainProgramDescription
     {
 
@@ -167,7 +167,7 @@ namespace Epg.Entities.Concrete.XMLEntities
     /// <remarks/>
     [System.SerializableAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "urn:tva:metadata:2010")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "")]
     public partial class TVAMainProgramDescriptionProgramInformation
     {
 
@@ -237,7 +237,7 @@ namespace Epg.Entities.Concrete.XMLEntities
     /// <remarks/>
     [System.SerializableAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "urn:tva:metadata:2010")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "")]
     public partial class TVAMainProgramDescriptionProgramInformationBasicDescription
     {
 
@@ -401,7 +401,7 @@ namespace Epg.Entities.Concrete.XMLEntities
     /// <remarks/>
     [System.SerializableAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "urn:tva:metadata:2010")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "")]
     public partial class TVAMainProgramDescriptionProgramInformationBasicDescriptionTitle
     {
 
@@ -457,7 +457,7 @@ namespace Epg.Entities.Concrete.XMLEntities
     /// <remarks/>
     [System.SerializableAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "urn:tva:metadata:2010")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "")]
     public partial class TVAMainProgramDescriptionProgramInformationBasicDescriptionShortTitle
     {
 
@@ -529,7 +529,7 @@ namespace Epg.Entities.Concrete.XMLEntities
     /// <remarks/>
     [System.SerializableAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "urn:tva:metadata:2010")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "")]
     public partial class TVAMainProgramDescriptionProgramInformationBasicDescriptionSynopsis
     {
 
@@ -585,7 +585,7 @@ namespace Epg.Entities.Concrete.XMLEntities
     /// <remarks/>
     [System.SerializableAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "urn:tva:metadata:2010")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "")]
     public partial class TVAMainProgramDescriptionProgramInformationBasicDescriptionKeyword
     {
 
@@ -641,7 +641,7 @@ namespace Epg.Entities.Concrete.XMLEntities
     /// <remarks/>
     [System.SerializableAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "urn:tva:metadata:2010")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "")]
     public partial class TVAMainProgramDescriptionProgramInformationBasicDescriptionGenre
     {
 
@@ -696,7 +696,7 @@ namespace Epg.Entities.Concrete.XMLEntities
     /// <remarks/>
     [System.SerializableAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "urn:tva:metadata:2010")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "")]
     public partial class TVAMainProgramDescriptionProgramInformationBasicDescriptionGenreName
     {
 
@@ -736,7 +736,7 @@ namespace Epg.Entities.Concrete.XMLEntities
     /// <remarks/>
     [System.SerializableAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "urn:tva:metadata:2010")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "")]
     public partial class TVAMainProgramDescriptionProgramInformationBasicDescriptionCreditsItem
     {
 
@@ -821,7 +821,7 @@ namespace Epg.Entities.Concrete.XMLEntities
     /// <remarks/>
     [System.SerializableAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "urn:tva:metadata:2010")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "")]
     public partial class TVAMainProgramDescriptionProgramInformationBasicDescriptionCreditsItemPersonName
     {
 
@@ -959,7 +959,7 @@ namespace Epg.Entities.Concrete.XMLEntities
     /// <remarks/>
     [System.SerializableAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "urn:tva:metadata:2010")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "")]
     public partial class TVAMainProgramDescriptionProgramInformationBasicDescriptionCreditsItemPersonNameIDRef
     {
 
@@ -983,7 +983,7 @@ namespace Epg.Entities.Concrete.XMLEntities
     /// <remarks/>
     [System.SerializableAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "urn:tva:metadata:2010")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "")]
     public partial class TVAMainProgramDescriptionProgramInformationBasicDescriptionCreditsItemPresentationRole
     {
 
@@ -1023,7 +1023,7 @@ namespace Epg.Entities.Concrete.XMLEntities
     /// <remarks/>
     [System.SerializableAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "urn:tva:metadata:2010")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "")]
     public partial class TVAMainProgramDescriptionProgramInformationBasicDescriptionRelatedMaterial
     {
 
@@ -1061,7 +1061,7 @@ namespace Epg.Entities.Concrete.XMLEntities
     /// <remarks/>
     [System.SerializableAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "urn:tva:metadata:2010")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "")]
     public partial class TVAMainProgramDescriptionProgramInformationBasicDescriptionRelatedMaterialHowRelated
     {
 
@@ -1100,7 +1100,7 @@ namespace Epg.Entities.Concrete.XMLEntities
     /// <remarks/>
     [System.SerializableAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "urn:tva:metadata:2010")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "")]
     public partial class TVAMainProgramDescriptionProgramInformationBasicDescriptionRelatedMaterialMediaLocator
     {
 
@@ -1124,7 +1124,7 @@ namespace Epg.Entities.Concrete.XMLEntities
     /// <remarks/>
     [System.SerializableAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "urn:tva:metadata:2010")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "")]
     public partial class TVAMainProgramDescriptionProgramInformationBasicDescriptionProductionDate
     {
 
@@ -1147,7 +1147,7 @@ namespace Epg.Entities.Concrete.XMLEntities
     /// <remarks/>
     [System.SerializableAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "urn:tva:metadata:2010")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "")]
     public partial class TVAMainProgramDescriptionProgramInformationOtherIdentifier
     {
 
@@ -1203,7 +1203,7 @@ namespace Epg.Entities.Concrete.XMLEntities
     /// <remarks/>
     [System.SerializableAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "urn:tva:metadata:2010")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "")]
     public partial class TVAMainProgramDescriptionProgramInformationEpisodeOf
     {
 
@@ -1243,7 +1243,7 @@ namespace Epg.Entities.Concrete.XMLEntities
     /// <remarks/>
     [System.SerializableAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "urn:tva:metadata:2010")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "")]
     public partial class TVAMainProgramDescriptionGroupInformation
     {
 
@@ -1328,7 +1328,7 @@ namespace Epg.Entities.Concrete.XMLEntities
     /// <remarks/>
     [System.SerializableAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "urn:tva:metadata:2010")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "")]
     public partial class TVAMainProgramDescriptionGroupInformationGroupType
     {
 
@@ -1352,7 +1352,7 @@ namespace Epg.Entities.Concrete.XMLEntities
     /// <remarks/>
     [System.SerializableAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "urn:tva:metadata:2010")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "")]
     public partial class TVAMainProgramDescriptionGroupInformationBasicDescription
     {
 
@@ -1468,7 +1468,7 @@ namespace Epg.Entities.Concrete.XMLEntities
     /// <remarks/>
     [System.SerializableAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "urn:tva:metadata:2010")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "")]
     public partial class TVAMainProgramDescriptionGroupInformationBasicDescriptionTitle
     {
 
@@ -1524,7 +1524,7 @@ namespace Epg.Entities.Concrete.XMLEntities
     /// <remarks/>
     [System.SerializableAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "urn:tva:metadata:2010")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "")]
     public partial class TVAMainProgramDescriptionGroupInformationBasicDescriptionShortTitle
     {
 
@@ -1596,7 +1596,7 @@ namespace Epg.Entities.Concrete.XMLEntities
     /// <remarks/>
     [System.SerializableAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "urn:tva:metadata:2010")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "")]
     public partial class TVAMainProgramDescriptionGroupInformationBasicDescriptionSynopsis
     {
 
@@ -1652,7 +1652,7 @@ namespace Epg.Entities.Concrete.XMLEntities
     /// <remarks/>
     [System.SerializableAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "urn:tva:metadata:2010")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "")]
     public partial class TVAMainProgramDescriptionGroupInformationBasicDescriptionGenre
     {
 
@@ -1707,7 +1707,7 @@ namespace Epg.Entities.Concrete.XMLEntities
     /// <remarks/>
     [System.SerializableAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "urn:tva:metadata:2010")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "")]
     public partial class TVAMainProgramDescriptionGroupInformationBasicDescriptionGenreName
     {
 
@@ -1747,7 +1747,7 @@ namespace Epg.Entities.Concrete.XMLEntities
     /// <remarks/>
     [System.SerializableAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "urn:tva:metadata:2010")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "")]
     public partial class TVAMainProgramDescriptionGroupInformationBasicDescriptionRelatedMaterial
     {
 
@@ -1785,7 +1785,7 @@ namespace Epg.Entities.Concrete.XMLEntities
     /// <remarks/>
     [System.SerializableAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "urn:tva:metadata:2010")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "")]
     public partial class TVAMainProgramDescriptionGroupInformationBasicDescriptionRelatedMaterialHowRelated
     {
 
@@ -1824,7 +1824,7 @@ namespace Epg.Entities.Concrete.XMLEntities
     /// <remarks/>
     [System.SerializableAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "urn:tva:metadata:2010")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "")]
     public partial class TVAMainProgramDescriptionGroupInformationBasicDescriptionRelatedMaterialMediaLocator
     {
 
@@ -1848,7 +1848,7 @@ namespace Epg.Entities.Concrete.XMLEntities
     /// <remarks/>
     [System.SerializableAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "urn:tva:metadata:2010")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "")]
     public partial class TVAMainProgramDescriptionGroupInformationBasicDescriptionProductionDate
     {
 
@@ -1871,7 +1871,7 @@ namespace Epg.Entities.Concrete.XMLEntities
     /// <remarks/>
     [System.SerializableAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "urn:tva:metadata:2010")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "")]
     public partial class TVAMainProgramDescriptionGroupInformationMemberOf
     {
 
@@ -1911,7 +1911,7 @@ namespace Epg.Entities.Concrete.XMLEntities
     /// <remarks/>
     [System.SerializableAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "urn:tva:metadata:2010")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "")]
     public partial class TVAMainProgramDescriptionGroupInformationOtherIdentifier
     {
 
@@ -1967,7 +1967,7 @@ namespace Epg.Entities.Concrete.XMLEntities
     /// <remarks/>
     [System.SerializableAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "urn:tva:metadata:2010")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "")]
     public partial class TVAMainProgramDescriptionSchedule
     {
 
@@ -2039,7 +2039,7 @@ namespace Epg.Entities.Concrete.XMLEntities
     /// <remarks/>
     [System.SerializableAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "urn:tva:metadata:2010")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "")]
     public partial class TVAMainProgramDescriptionScheduleScheduleEvent
     {
 
@@ -2138,7 +2138,7 @@ namespace Epg.Entities.Concrete.XMLEntities
     /// <remarks/>
     [System.SerializableAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "urn:tva:metadata:2010")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "")]
     public partial class TVAMainProgramDescriptionScheduleScheduleEventProgram
     {
 
@@ -2162,7 +2162,7 @@ namespace Epg.Entities.Concrete.XMLEntities
     /// <remarks/>
     [System.SerializableAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "urn:tva:metadata:2010")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "")]
     public partial class TVAMainProgramDescriptionScheduleScheduleEventInstanceDescription
     {
 
@@ -2215,7 +2215,7 @@ namespace Epg.Entities.Concrete.XMLEntities
     /// <remarks/>
     [System.SerializableAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "urn:tva:metadata:2010")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "")]
     public partial class TVAMainProgramDescriptionScheduleScheduleEventInstanceDescriptionPurchaseList
     {
 
@@ -2238,7 +2238,7 @@ namespace Epg.Entities.Concrete.XMLEntities
     /// <remarks/>
     [System.SerializableAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "urn:tva:metadata:2010")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "")]
     public partial class TVAMainProgramDescriptionScheduleScheduleEventInstanceDescriptionPurchaseListPurchaseItem
     {
 
@@ -2291,7 +2291,7 @@ namespace Epg.Entities.Concrete.XMLEntities
     /// <remarks/>
     [System.SerializableAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "urn:tva:metadata:2010")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "")]
     public partial class TVAMainProgramDescriptionScheduleScheduleEventInstanceDescriptionPurchaseListPurchaseItemPrice
     {
 
@@ -2331,7 +2331,7 @@ namespace Epg.Entities.Concrete.XMLEntities
     /// <remarks/>
     [System.SerializableAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "urn:tva:metadata:2010")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "")]
     public partial class TVAMainProgramDescriptionScheduleScheduleEventInstanceDescriptionPurchaseListPurchaseItemPurchase
     {
 
@@ -2354,7 +2354,7 @@ namespace Epg.Entities.Concrete.XMLEntities
     /// <remarks/>
     [System.SerializableAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "urn:tva:metadata:2010")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "")]
     public partial class TVAMainProgramDescriptionScheduleScheduleEventInstanceDescriptionPurchaseListPurchaseItemPurchasePurchaseType
     {
 
@@ -2378,7 +2378,7 @@ namespace Epg.Entities.Concrete.XMLEntities
     /// <remarks/>
     [System.SerializableAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "urn:tva:metadata:2010")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "")]
     public partial class TVAMainProgramDescriptionScheduleScheduleEventInstanceDescriptionAVAttributes
     {
 
@@ -2401,7 +2401,7 @@ namespace Epg.Entities.Concrete.XMLEntities
     /// <remarks/>
     [System.SerializableAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "urn:tva:metadata:2010")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "")]
     public partial class TVAMainProgramDescriptionScheduleScheduleEventInstanceDescriptionAVAttributesAudioAttributes
     {
 
@@ -2424,7 +2424,7 @@ namespace Epg.Entities.Concrete.XMLEntities
     /// <remarks/>
     [System.SerializableAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "urn:tva:metadata:2010")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "")]
     public partial class TVAMainProgramDescriptionScheduleScheduleEventInstanceDescriptionAVAttributesAudioAttributesAudioLanguage
     {
 
@@ -2464,7 +2464,7 @@ namespace Epg.Entities.Concrete.XMLEntities
     /// <remarks/>
     [System.SerializableAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "urn:tva:metadata:2010")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "")]
     public partial class TVAMainProgramDescriptionScheduleScheduleEventInstanceDescriptionOtherIdentifier
     {
 
@@ -2536,7 +2536,7 @@ namespace Epg.Entities.Concrete.XMLEntities
     /// <remarks/>
     [System.SerializableAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "urn:tva:metadata:2010")]
+    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "")]
     public partial class TVAMainProgramDescriptionServiceInformation
     {
 

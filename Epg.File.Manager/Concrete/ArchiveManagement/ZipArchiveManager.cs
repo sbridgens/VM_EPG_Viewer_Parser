@@ -116,7 +116,7 @@ namespace Epg.File.Manager.Concrete.ArchiveManagement
                 tarStream.CopyEntryContents(outStream);
                 entry = tarStream.GetNextEntry();
             }
-
+            outStream.Close();
         }
 
         public void ExtractTarFile()

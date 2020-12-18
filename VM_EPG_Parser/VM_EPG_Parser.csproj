@@ -12,6 +12,7 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\Epg.Configuration.Manager\Epg.Configuration.Manager.csproj" />
+		<ProjectReference Include="..\Epg.Entities\Epg.Entities.csproj" />
 		<ProjectReference Include="..\Epg.File.Manager\Epg.File.Manager.csproj" />
 		<ProjectReference Include="..\Epg.Serialization\Epg.Serialization.csproj" />
 	</ItemGroup>

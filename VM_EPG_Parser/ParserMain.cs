@@ -4,7 +4,9 @@ using System.IO;
 using Epg.Configuration.Manager.Concrete;
 using Epg.Configuration.Manager.Schema.VM_EPG_Parser;
 using Epg.Serialization.Concrete;
+using Epg.Entities.Concrete.XMLEntities;
 using VM_EPG_Parser.WorkflowItems;
+using Epg.Entities.Concrete;
 
 namespace VM_EPG_Parser
 {
@@ -52,6 +54,7 @@ namespace VM_EPG_Parser
                 XmlSerializationManager<TVAMain> xmlSerializationManager = new XmlSerializationManager<TVAMain>();
                 string xmlInputData = File.ReadAllText(archiveOperations.ExtractedEpgFile);
                 TVAMain tVAMain = xmlSerializationManager.Read(xmlInputData);
+                TVADBMainEntities dbMainEntity = tVAMain.GetDBEntity();
             }
             else 
             {
