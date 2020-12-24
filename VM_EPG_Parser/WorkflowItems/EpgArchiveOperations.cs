@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Epg.Configuration.Manager.Schema.VM_EPG_Parser;
 using Epg.File.Manager.Concrete.ArchiveManagement;
+using VM_EPG_Parser.Config;
 
 namespace VM_EPG_Parser.WorkflowItems
 {
@@ -39,10 +39,10 @@ namespace VM_EPG_Parser.WorkflowItems
                 {
                     Console.WriteLine("Unpacking EPG File");
                     ZipManager = new ZipArchiveManager();
-                    ZipManager.OutputDirectoryPath = EPG_Parser_Config.LocalWorkingDirectory;
+                    ZipManager.OutputDirectoryPath = AppSettings.LocalWorkingDirectory;
                     ZipManager.FullEpgPackagePath = epgArchive;
-                    ZipManager.CanArchive = EpgArchive.EnableArchive;
-                    ZipManager.EpgArchiveDirectory = EpgArchive.EpgArchiveDirectory;
+                    ZipManager.CanArchive = AppSettings.EnableArchive;
+                    ZipManager.EpgArchiveDirectory = AppSettings.EpgArchiveDirectory;
 
                     ZipManager.CleanExtractionDirectory();
 

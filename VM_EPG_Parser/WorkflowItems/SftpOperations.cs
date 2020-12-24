@@ -1,8 +1,8 @@
 ﻿using System;
 using System.IO;
-using Epg.Configuration.Manager.Schema.VM_EPG_Parser;
 using Epg.File.Manager.Concrete.SftpManagement;
 using Epg.File.Manager.Enum;
+using VM_EPG_Parser.Config;
 using WinSCP;
 
 namespace VM_EPG_Parser.WorkflowItems
@@ -17,33 +17,33 @@ namespace VM_EPG_Parser.WorkflowItems
                 SftpOptions = new SessionOptions
                 {
                     Protocol = Protocol.Sftp,
-                    HostName = EPG_Parser_Config.SftpHost,
-                    UserName = EPG_Parser_Config.SftpUserName,
-                    Password = EPG_Parser_Config.SftpKeyOrUserPassword,
-                    PortNumber = EPG_Parser_Config.SftpPort,
-                    SshHostKeyFingerprint = EPG_Parser_Config.SshHostKeyFingerprint,
-                    SshPrivateKeyPath = EPG_Parser_Config.SftpKeyFile
+                    HostName = AppSettings.SftpHost,
+                    UserName = AppSettings.SftpUserName,
+                    Password = AppSettings.SftpKeyOrUserPassword,
+                    PortNumber = AppSettings.SftpPort,
+                    SshHostKeyFingerprint = AppSettings.SshHostKeyFingerprint,
+                    SshPrivateKeyPath = AppSettings.SftpKeyFile
                 }
             };
 
 
-            if (ProxyInfo.UseProxy)
+            if (AppSettings.UseProxy)
             {
-                var pMethod = (ProxyMethod)Enum.Parse(typeof(ProxyMethod), ProxyInfo.ProxyType);
+                var pMethod = (ProxyMethod)Enum.Parse(typeof(ProxyMethod), AppSettings.ProxyType);
                 sftpClient.SftpOptions.AddRawSettings("ProxyMethod", $"{(int)pMethod}");
-                sftpClient.SftpOptions.AddRawSettings("ProxyHost", ProxyInfo.ProxyHost);
-                sftpClient.SftpOptions.AddRawSettings("ProxyPort", $"{ProxyInfo.ProxyPort}");
-                sftpClient.SftpOptions.AddRawSettings("ProxyUsername", ProxyInfo.ProxyUsername);
-                sftpClient.SftpOptions.AddRawSettings("ProxyPassword", ProxyInfo.ProxyPassword);
+                sftpClient.SftpOptions.AddRawSettings("ProxyHost", AppSettings.ProxyHost);
+                sftpClient.SftpOptions.AddRawSettings("ProxyPort", $"{AppSettings.ProxyPort}");
+                sftpClient.SftpOptions.AddRawSettings("ProxyUsername", AppSettings.ProxyUsername);
+                sftpClient.SftpOptions.AddRawSettings("ProxyPassword", AppSettings.ProxyPassword);
             }
 
             sftpClient.SftpSession = new Session();
 
             sftpClient.ConnectAndDownloadEpgData(
-                sftpRootDirectory: EPG_Parser_Config.SftpRoot,
-                EPG_Parser_Config.DownloadFilesOfType,
-                localDownloadDirectory: EPG_Parser_Config.EpgDownloadDirectory,
-                archiveDirectory: EpgArchive.EpgArchiveDirectory);
+                sftpRootDirectory: AppSettings.SftpRoot,
+                AppSettings.DownloadFilesOfType,
+                localDownloadDirectory: AppSettings.EpgDownloadDirectory,
+                archiveDirectory: AppSettings.EpgArchiveDirectory);
 
             LatestEpg = sftpClient.EpgTarBall;
 
