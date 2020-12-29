@@ -47,7 +47,7 @@ namespace VM_EPG_Parser
                 XmlSerializationManager<TVAMain> xmlSerializationManager = new XmlSerializationManager<TVAMain>();
                 string xmlInputData = File.ReadAllText(archiveOperations.ExtractedEpgFile);
                 TVAMain tVAMain = xmlSerializationManager.Read(xmlInputData);
-                TVADBMainEntities dbMainEntity = tVAMain.GetDBEntity();
+                TVADBMainEntities dbMainEntity = tVAMain.GetDbEntity();
 
                 EpgDataSaveOperations.InsertUpdateEpgData(dbMainEntity);
             }

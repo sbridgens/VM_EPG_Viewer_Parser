@@ -87,8 +87,8 @@ namespace Epg.Core.DataAccess.Concrete.DataAccessLayer
             //    return new OleSql(ConnectionString, Schema);
             //else if (ProviderName.ToLower().Contains("npgsql"))
             //    return new PostgreSql(ConnectionString, Schema);
-            else
-                return new MsSQL(ConnectionString, Schema);
+           
+            return new MsSQL(ConnectionString, Schema);
         }
 
         public ISql CreateSqlInstance(string connectionStringKey, string schema = "")

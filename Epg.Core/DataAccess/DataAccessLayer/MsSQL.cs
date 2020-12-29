@@ -38,8 +38,7 @@ namespace Epg.Core.DataAccess.Concrete.DataAccessLayer
             {
                 if (sqlConn == null || sqlConn.State != ConnectionState.Open)
                 {
-                    sqlConn = new SqlConnection();
-                    sqlConn.ConnectionString = ConnectionString;
+                    sqlConn = new SqlConnection {ConnectionString = ConnectionString};
                     sqlConn.Open();
                 }
             }
@@ -73,9 +72,11 @@ namespace Epg.Core.DataAccess.Concrete.DataAccessLayer
             sqlCmd.CommandTimeout = CommandTimeout;
             foreach (DALParameter dalParameter in DALParameters)
             {
-                SqlParameter sqlParameter = new SqlParameter("@" + dalParameter.ParameterName, dalParameter.ParameterValue);
-                sqlParameter.DbType = dalParameter.DBType;
-                sqlParameter.Direction = dalParameter.Direction;
+                SqlParameter sqlParameter =
+                    new SqlParameter("@" + dalParameter.ParameterName, dalParameter.ParameterValue)
+                    {
+                        DbType = dalParameter.DBType, Direction = dalParameter.Direction
+                    };
                 sqlCmd.Parameters.Add(sqlParameter);
             }
             DALParameters.Clear();

@@ -1,49 +1,46 @@
 ﻿using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace Epg.Entities.Concrete.XMLEntities
 {
-    public static class XMLMapper
+    public static class XmlMapper
     {
-        public static TVADBMainEntities GetDBEntity(this TVAMain tVAMain, EpgScheduleFileHistoryEntities scheduleFileHistory = null)
+        public static TVADBMainEntities GetDbEntity(this TVAMain tvaMain, EpgScheduleFileHistoryEntities scheduleFileHistory = null)
         {
             TVADBMainEntities dBMainEntities = new TVADBMainEntities();
             if (scheduleFileHistory != null)
                 dBMainEntities.ScheduleFileHistory = scheduleFileHistory;
 
-            if (tVAMain.ProgramDescription != null) 
-            { 
-                //set List<ProgramInformationDataEntities> Programs = new List<ProgramInformationDataEntities>();
-                for (int i = 0; i < tVAMain.ProgramDescription.ProgramInformationTable.Length; i++)
-                {
-                    dBMainEntities.Programs.Add(mapProgram(tVAMain.ProgramDescription.ProgramInformationTable[i]));
-                }
+            if (tvaMain.ProgramDescription == null)
+                return dBMainEntities;
+            //set List<ProgramInformationDataEntities> Programs = new List<ProgramInformationDataEntities>();
+            foreach (var t in tvaMain.ProgramDescription.ProgramInformationTable)
+            {
+                dBMainEntities.Programs.Add(MapProgram(t));
+            }
 
-                //      set List<GroupInformationDataEntities> Groups = new List<GroupInformationDataEntities>();
-                for (int i = 0; i < tVAMain.ProgramDescription.GroupInformationTable.Length; i++)
-                {
-                    dBMainEntities.Groups.Add(mapGroups(tVAMain.ProgramDescription.GroupInformationTable[i]));
-                }
+            //      set List<GroupInformationDataEntities> Groups = new List<GroupInformationDataEntities>();
+            foreach (var t in tvaMain.ProgramDescription.GroupInformationTable)
+            {
+                dBMainEntities.Groups.Add(MapGroups(t));
+            }
 
-                //set List<ProgramScheduleDataEntities> ProgramSchedules = new List<ProgramScheduleDataEntities>();
-                for (int i = 0; i < tVAMain.ProgramDescription.ProgramLocationTable.Length; i++)
-                {
-                    dBMainEntities.ProgramSchedules.Add(mapProgramSchedules(tVAMain.ProgramDescription.ProgramLocationTable[i]));
-                }
+            //set List<ProgramScheduleDataEntities> ProgramSchedules = new List<ProgramScheduleDataEntities>();
+            foreach (var t in tvaMain.ProgramDescription.ProgramLocationTable)
+            {
+                dBMainEntities.ProgramSchedules.Add(MapProgramSchedules(t));
+            }
 
-                //set List<ServiceInformationDataEntities> Services = new List<ServiceInformationDataEntities>();
-                for (int i = 0; i < tVAMain.ProgramDescription.ServiceInformationTable.Length; i++)
-                {
-                    dBMainEntities.Services.Add(mapServices(tVAMain.ProgramDescription.ServiceInformationTable[i]));
-                }
+            //set List<ServiceInformationDataEntities> Services = new List<ServiceInformationDataEntities>();
+            foreach (var t in tvaMain.ProgramDescription.ServiceInformationTable)
+            {
+                dBMainEntities.Services.Add(MapServices(t));
             }
             return dBMainEntities;
         }
 
-        private static ProgramInformationDataEntities mapProgram(TVAMainProgramDescriptionProgramInformation programInformation)
+        private static ProgramInformationDataEntities MapProgram(TVAMainProgramDescriptionProgramInformation programInformation)
         {
             var genreList = programInformation.BasicDescription.Genre?.Select(x => x.Name.Value).ToList();
 
@@ -70,9 +67,9 @@ namespace Epg.Entities.Concrete.XMLEntities
             };
         }
 
-        private static GroupInformationDataEntities mapGroups(TVAMainProgramDescriptionGroupInformation groupInformation)
+        private static GroupInformationDataEntities MapGroups(TVAMainProgramDescriptionGroupInformation groupInformation)
         {
-            var synopsisList = groupInformation.BasicDescription.Synopsis?.Where(x => x.length.ToLower() == "long")?.Select(x => x.Value).ToList();
+            var synopsisList = groupInformation.BasicDescription.Synopsis?.Where(x => x.length.ToLower() == "long").Select(x => x.Value).ToList();
             var genreList = groupInformation.BasicDescription.Genre?.Select(x => x.Name.Value).ToList();
 
             return new GroupInformationDataEntities()
@@ -94,7 +91,7 @@ namespace Epg.Entities.Concrete.XMLEntities
             };
         }
 
-        private static ProgramScheduleDataEntities mapProgramSchedules(TVAMainProgramDescriptionSchedule mainProgramDescriptionSchedule)
+        private static ProgramScheduleDataEntities MapProgramSchedules(TVAMainProgramDescriptionSchedule mainProgramDescriptionSchedule)
         {
             return new ProgramScheduleDataEntities()
             {
@@ -115,7 +112,7 @@ namespace Epg.Entities.Concrete.XMLEntities
             };
         }
 
-        private static ServiceInformationDataEntities mapServices(TVAMainProgramDescriptionServiceInformation serviceInformation)
+        private static ServiceInformationDataEntities MapServices(TVAMainProgramDescriptionServiceInformation serviceInformation)
         {
             return new ServiceInformationDataEntities()
             {
