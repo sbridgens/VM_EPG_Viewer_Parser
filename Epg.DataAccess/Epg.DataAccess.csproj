@@ -12,10 +12,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Concrete\EntityFramework\Mappings\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\Epg.Core\Epg.Core.csproj" />
     <ProjectReference Include="..\Epg.Entities\Epg.Entities.csproj" />
     <ProjectReference Include="..\Epg.Serialization\Epg.Serialization.csproj" />

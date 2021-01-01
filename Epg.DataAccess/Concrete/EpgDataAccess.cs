@@ -5,6 +5,7 @@ using Epg.Entities.Concrete;
 using Epg.Serialization.Concrete;
 using Microsoft.Extensions.Configuration;
 using System.Data;
+using Epg.Core.DataAccess.DataAccessLayer;
 
 namespace Epg.DataAccess.Concrete
 {

@@ -40,30 +40,12 @@ namespace Epg.Core.DataAccess.Concrete.DataAccessLayer
             get { return _staticConnectionStringKey; }
             set { _staticConnectionStringKey = value; }
         }
-        private string ProviderName
-        {
-            get
-            {
-                if (ConnectionStringKey != string.Empty)
-                    return Convert.ToString(Configuration["ConnectionStrings:" + ConnectionStringKey + ":ProviderName"]).ToLower();
-                else if (CommonConnectionStringKey != string.Empty)
-                    return Convert.ToString(Configuration["ConnectionStrings:" + CommonConnectionStringKey + ":ProviderName"]).ToLower();
-                else
-                    return string.Empty;
-            }
-        }
-        private string ConnectionString
-        {
-            get
-            {
-                if (ConnectionStringKey != string.Empty)
-                    return string.Format(Convert.ToString(Configuration["ConnectionStrings:" + ConnectionStringKey + ":ConnectionString"]), IPAddress);
-                else if (CommonConnectionStringKey != string.Empty)
-                    return string.Format(Convert.ToString(Configuration["ConnectionStrings:" + CommonConnectionStringKey + ":ConnectionString"]), IPAddress);
-                else
-                    return string.Empty;
-            }
-        }
+        private string ProviderName => 
+            Configuration.GetSection("ConnectionStrings/Default/ProviderName").Value.ToLower();
+
+        private string ConnectionString => 
+            Configuration.GetSection("ConnectionStrings/Default/ConnectionString").Value.ToLower();
+        
         private string IPAddress
         {
             get;
@@ -81,14 +63,14 @@ namespace Epg.Core.DataAccess.Concrete.DataAccessLayer
         public ISql CreateSqlInstance()
         {
             IPAddress = string.Empty;
-            if (ProviderName.ToLower().Contains("system.data.sqlclient"))
+            if (ProviderName.Contains("system.data.sqlclient"))
                 return new MsSQL(ConnectionString, Schema);
             //else if (ProviderName.ToLower().Contains("oracle.dataaccess.client") || ProviderName.ToLower().Contains("microsoft.ace.oledb"))
             //    return new OleSql(ConnectionString, Schema);
             //else if (ProviderName.ToLower().Contains("npgsql"))
             //    return new PostgreSql(ConnectionString, Schema);
-            else
-                return new MsSQL(ConnectionString, Schema);
+           
+            return new MsSQL(ConnectionString, Schema);
         }
 
         public ISql CreateSqlInstance(string connectionStringKey, string schema = "")
