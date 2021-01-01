@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Application.BusinessLogic;
+using Application.BusinessLogic.Contracts;
 using Application.Configuration;
 using Application.DataAccess.Persistence.Contracts;
 using Application.FileManager.Serialization;
@@ -26,8 +28,8 @@ namespace Infrastructure
             
             services.AddScoped<IApplicationDbContext>(provider => 
                 provider.GetService<ApplicationDbContext>());
-
-            
+            services.AddScoped<IWorker, Worker>();
+            services.AddSingleton<ISftpOperations, SftpOperations>();
             services.AddSingleton<ISystemClock, SystemClock>();
             services.AddSingleton<IXmlSerializationManager, XmlSerializationManager>();
 

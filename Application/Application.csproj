@@ -2,10 +2,10 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <LangVersion>8</LangVersion>
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="BusinessLogic\Contracts\" />
     <Folder Include="Extensions\" />
     <Folder Include="FileManager\Contracts\" />
     <Folder Include="Models\" />
@@ -19,6 +19,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Domain\Domain.csproj" />
+    <ProjectReference Include="..\Epg.File.Manager\Epg.File.Manager.csproj" />
   </ItemGroup>
 
 </Project>

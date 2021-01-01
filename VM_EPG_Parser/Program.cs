@@ -6,40 +6,35 @@ using Epg.Entities.Concrete.XMLEntities;
 using VM_EPG_Parser.WorkflowItems;
 using Epg.Entities.Concrete;
 using System.Text;
+using Application.BusinessLogic.Contracts;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using VM_EPG_Parser.Config;
+using Microsoft.Extensions.Options;
+
 
 
 namespace VM_EPG_Parser
 {
-    class ParserMain
+    class Program
     {
         public static IConfiguration Configuration { get; private set; }
+        
 
         static void Main(string[] args)
         {
+            Console.WriteLine("Loading Config file.");
             IServiceCollection serviceCollection = new ServiceCollection();
             Startup startup = new Startup();
             startup.ConfigureServices(serviceCollection);
 
-
-
-
-            //Stopwatch watch = new Stopwatch();
-            //watch.Start();
-
-            //Console.WriteLine("Loading Config file.");
+            //SB: for service scope when added create serviceprovider
+            //then use service provider to inject ILoggerFactory from logging libs
+            IServiceProvider serviceProvider = serviceCollection.BuildServiceProvider();
+            var service = serviceProvider.GetService<IWorker>();
+            service.DoWork();
 
             //Console.OutputEncoding = Encoding.UTF8;
-            //var builder = new ConfigurationBuilder()
-            //    .SetBasePath(Directory.GetCurrentDirectory())
-            //    .AddJsonFile("Config/appsettings.json", optional: true, reloadOnChange: true);
-
-            //Configuration.Bind(Startup(Configuration));
-            //Configuration = builder.Build();
-
             //Console.WriteLine("Loaded Config file.");
 
             //Console.WriteLine($"Connecting to FTP Server: {AppSettings.SftpHost}");
@@ -48,7 +43,7 @@ namespace VM_EPG_Parser
             //if (!sftpOperations.RetrieveLatestEpgFile()) 
             //    return;
 
-            ////Need to capture epgfile here and dispose sftp resources
+            //////Need to capture epgfile here and dispose sftp resources
             //Console.WriteLine("SFTP Operations completed successfully");
             //EpgArchiveOperations archiveOperations = new EpgArchiveOperations();
             //bool isUnpackedSuccess = archiveOperations.ProcessEpgArchive(sftpOperations.LatestEpg.FullName);
@@ -62,7 +57,7 @@ namespace VM_EPG_Parser
 
             //    EpgDataSaveOperations.InsertUpdateEpgData(dbMainEntity);
             //}
-            //else 
+            //else
             //{
             //    Console.WriteLine("Operations Failed during unpacking of Epg File");
             //}

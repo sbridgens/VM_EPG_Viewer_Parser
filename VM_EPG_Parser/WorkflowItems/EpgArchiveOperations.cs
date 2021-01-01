@@ -1,15 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Application.Configuration;
 using Epg.File.Manager.Concrete.ArchiveManagement;
-using VM_EPG_Parser.Config;
+using Microsoft.Extensions.Options;
 
 namespace VM_EPG_Parser.WorkflowItems
 {
     public class EpgArchiveOperations
     {
+        private AppSettings _appSettings;
         private ZipArchiveManager ZipManager { get; set; }
         public string ExtractedEpgFile { get; set; }
+
+        public EpgArchiveOperations(IOptions<AppSettings> appOptions)
+        {
+            _appSettings = appOptions.Value;
+        }
 
         // Ordering of double extensions is important.
         private static readonly List<string> AllowedExtensions = new List<string>()
@@ -39,10 +46,10 @@ namespace VM_EPG_Parser.WorkflowItems
                 {
                     Console.WriteLine("Unpacking EPG File");
                     ZipManager = new ZipArchiveManager();
-                    ZipManager.OutputDirectoryPath = AppSettings.LocalWorkingDirectory;
+                    ZipManager.OutputDirectoryPath = _appSettings.LocalWorkingDirectory;
                     ZipManager.FullEpgPackagePath = epgArchive;
-                    ZipManager.CanArchive = AppSettings.EnableArchive;
-                    ZipManager.EpgArchiveDirectory = AppSettings.EpgArchiveDirectory;
+                    ZipManager.CanArchive = Convert.ToBoolean(_appSettings.EnableArchive);
+                    ZipManager.EpgArchiveDirectory = _appSettings.ArchiveDirectory;
 
                     ZipManager.CleanExtractionDirectory();
 

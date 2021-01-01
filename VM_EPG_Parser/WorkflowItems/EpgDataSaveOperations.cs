@@ -10,7 +10,7 @@ namespace VM_EPG_Parser.WorkflowItems
     {
         public static void InsertUpdateEpgData(TVADBMainEntities tVADBMainEntities)
         {
-            EpgDataAccess epgDA = new EpgDataAccess(ParserMain.Configuration);
+            EpgDataAccess epgDA = new EpgDataAccess(Program.Configuration);
 
             //TOD: need to return success or failure message
             epgDA.InsertUpdate(tVADBMainEntities);
