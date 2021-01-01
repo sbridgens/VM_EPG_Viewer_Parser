@@ -53,7 +53,7 @@ namespace VM_EPG_Parser
                 archiveOperations.ArchiveActiveFile();
                 scheduleFileHistory.EpgDateTimeArchived = DateTime.UtcNow;
 
-                TVADBMainEntities dbMainEntity = tVAMain.GetDBEntity(scheduleFileHistory);
+                TVADBMainEntities dbMainEntity = tVAMain.GetDbEntity(scheduleFileHistory);
                 EpgDataSaveOperations.InsertUpdateEpgData(dbMainEntity);
             }
             else 
