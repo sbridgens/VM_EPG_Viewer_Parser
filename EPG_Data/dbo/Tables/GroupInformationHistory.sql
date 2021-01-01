@@ -15,6 +15,7 @@
     [Gid_ProductionYear]    VARCHAR (45)   NULL,
     [Gid_RowChanges]        NVARCHAR (MAX) NULL,
     [Gid_ParentId]          INT            NOT NULL,
+    [Gid_Action]            CHAR(1)        NOT NULL,
     [Gid_CreatedDateTime]   DATETIME       NOT NULL
     CONSTRAINT [PK_GroupInformationHistory] PRIMARY KEY CLUSTERED ([Id] ASC),
     CONSTRAINT [FK_GroupInformationHistory_GroupInformationData] FOREIGN KEY ([Gid_ParentId]) REFERENCES [dbo].[GroupInformationData] ([Id])

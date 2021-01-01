@@ -14,7 +14,7 @@
     [Pid_ProgramGenres]      VARCHAR (1000) NULL,
     [Pid_ParentalGuidance]   NVARCHAR (MAX) NULL,
     [Pid_CreditsList]        NVARCHAR (MAX) NULL,
-    [Pid_ProgramImages]      NVARCHAR (MAX) NOT NULL,
+    [Pid_ProgramImages]      NVARCHAR (MAX) NULL,
     [Pid_ProductionYear]     VARCHAR (4)    NULL,
     [Pid_ProductionLocation] VARCHAR (4)    NULL,
     [Pid_RowChanges]         NVARCHAR (MAX) NULL,

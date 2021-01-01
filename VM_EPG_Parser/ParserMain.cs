@@ -40,15 +40,20 @@ namespace VM_EPG_Parser
             //Need to capture epgfile here and dispose sftp resources
             Console.WriteLine("SFTP Operations completed successfully");
             EpgArchiveOperations archiveOperations = new EpgArchiveOperations();
-            bool isUnpackedSuccess = archiveOperations.ProcessEpgArchive(sftpOperations.LatestEpg.FullName);
-            if(isUnpackedSuccess)
+            EpgScheduleFileHistoryEntities scheduleFileHistory = archiveOperations.ProcessEpgArchive(sftpOperations.LatestEpg.FullName);
+            if(scheduleFileHistory != null)
             {
                 Console.WriteLine("Epg file Successfully unpacked");
+                
                 XmlSerializationManager<TVAMain> xmlSerializationManager = new XmlSerializationManager<TVAMain>();
                 string xmlInputData = File.ReadAllText(archiveOperations.ExtractedEpgFile);
                 TVAMain tVAMain = xmlSerializationManager.Read(xmlInputData);
-                TVADBMainEntities dbMainEntity = tVAMain.GetDBEntity();
+                scheduleFileHistory.EpgDateTimeParsed = DateTime.UtcNow;
 
+                archiveOperations.ArchiveActiveFile();
+                scheduleFileHistory.EpgDateTimeArchived = DateTime.UtcNow;
+
+                TVADBMainEntities dbMainEntity = tVAMain.GetDBEntity(scheduleFileHistory);
                 EpgDataSaveOperations.InsertUpdateEpgData(dbMainEntity);
             }
             else 

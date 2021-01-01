@@ -1,4 +1,4 @@
-﻿CREATE PROCEDURE [dbo].[EPG_InsertUpdate]
+﻿CREATE PROCEDURE [dbo].[EPG_History_InsertUpdate]
     @EpgFilenameGZ          VARCHAR (45),
     @EpgFilenameExtracted   VARCHAR (45),
     @EpgOriginalFileSize    VARCHAR (10),
@@ -10,7 +10,8 @@
     @GroupInformationData   xml,
     @ProgramInformationData xml,
     @ProgramScheduleData    xml,
-    @ServiceInformationData xml
+    @ServiceInformationData xml,
+    @CurrentDateTime        DATETIME
 AS
 BEGIN
     INSERT INTO [dbo].[EpgScheduleFileHistory]
@@ -34,11 +35,6 @@ BEGIN
 
 	DECLARE @Id INT
     SET @Id = SCOPE_IDENTITY();
-
-        --public List<ProgramInformationDataEntities> Programs = new List<ProgramInformationDataEntities>();
-        --public List<GroupInformationDataEntities> Groups = new List<GroupInformationDataEntities>();
-        --public List<ProgramScheduleDataEntities> ProgramSchedules = new List<ProgramScheduleDataEntities>();
-        --public List<ServiceInformationDataEntities> Services = new List<ServiceInformationDataEntities>();
 
     --Start ProgramInformationData insert into templary table from xml
     DECLARE @ProgramInformationDataTable AS TABLE (
@@ -103,7 +99,7 @@ BEGIN
             ,[Pid_ProductionYear]
             ,[Pid_ProductionLocation]
             ,[Pid_RowChanges]
-	FROM OPENXML (@pid, 'ArrayOfProgramInformationDataEntities/programInformationDataEntities',2)
+	FROM OPENXML (@pid, 'ArrayOfProgramInformationDataEntities/ProgramInformationDataEntities',2)
 	WITH (  [id]                     INT            ,
             [Pid_Crid]               VARCHAR (45)   ,
             [Pid_TmsId]              VARCHAR (45)   ,
@@ -179,7 +175,7 @@ BEGIN
             ,[Gid_SeriesImages]  
             ,[Gid_ProductionYear]
             ,[Gid_RowChanges]    
-	FROM OPENXML (@gid, 'ArrayOfGroupInformationDataEntities/groupInformationDataEntities',2)
+	FROM OPENXML (@gid, 'ArrayOfGroupInformationDataEntities/GroupInformationDataEntities',2)
 	WITH (  
             [id]                 INT            ,
             [Gid_GroupId]        VARCHAR (45)   ,
@@ -254,7 +250,7 @@ BEGIN
             ,[Psd_ScheduledEndTime]   
             ,[Psd_EventDuration]      
             ,[Psd_RowChange]          
-	FROM OPENXML (@psd, 'ArrayOfProgramScheduleDataEntities/programScheduleDataEntities',2)
+	FROM OPENXML (@psd, 'ArrayOfProgramScheduleDataEntities/ProgramScheduleDataEntities',2)
 	WITH (  
             [id]                     INT           ,
             [Psd_ServiceIdReference] VARCHAR (10)  ,
@@ -310,7 +306,7 @@ BEGIN
             ,[Sid_ChannelResolution] 
             ,[Sid_VM_ServiceGroup]   
             ,[Sid_RowChanges]        
-	FROM OPENXML (@sid, 'ArrayOfServiceInformationDataEntities/serviceInformationDataEntities',2)
+	FROM OPENXML (@sid, 'ArrayOfServiceInformationDataEntities/ServiceInformationDataEntities',2)
 	WITH (  
             [id]                    INT          ,
             [Sid_ServiceName]       VARCHAR (45) ,
@@ -330,6 +326,29 @@ BEGIN
 	BEGIN TRY 
 		--Start ProgramInformationData insert/update/delete operation
         DELETE  Pid
+        OUTPUT  
+                 DELETED.[Pid_Crid]               
+                ,DELETED.[Pid_TmsId]              
+                ,DELETED.[Pid_RootId]             
+                ,DELETED.[Pid_ImdbId]             
+                ,DELETED.[Pid_SeriesLink]         
+                ,DELETED.[Pid_EpisodeNumber]      
+                ,DELETED.[Pid_TitleMain]          
+                ,DELETED.[Pid_EpisodeTitle]       
+                ,DELETED.[Pid_SynopsisShort]      
+                ,DELETED.[Pid_SynopsisMedium]     
+                ,DELETED.[Pid_SynopsisLong]       
+                ,DELETED.[Pid_ProgramGenres]      
+                ,DELETED.[Pid_ParentalGuidance]   
+                ,DELETED.[Pid_CreditsList]        
+                ,DELETED.[Pid_ProgramImages]      
+                ,DELETED.[Pid_ProductionYear]     
+                ,DELETED.[Pid_ProductionLocation] 
+                ,DELETED.[Pid_RowChanges]         
+                ,DELETED.[id]       AS [Pid_ParentId]        
+                ,'D'                AS [Pid_Action]         
+                ,@CurrentDateTime   AS [Pid_CreatedDateTime]   
+        INTO    [ProgramInformationHistory]
         FROM    ProgramInformationData Pid
             LEFT JOIN @ProgramInformationDataTable TPid ON TPid.Pid_Crid = Pid.Pid_Crid
         WHERE   TPid.Pid_Crid IS NULL
@@ -354,8 +373,51 @@ BEGIN
                 ,[Pid_ProductionYear]       = TPid.[Pid_ProductionYear]
                 ,[Pid_ProductionLocation]   = TPid.[Pid_ProductionLocation]
                 ,[Pid_RowChanges]           = TPid.[Pid_RowChanges]
+        OUTPUT  
+                 DELETED.[Pid_Crid]               
+                ,DELETED.[Pid_TmsId]              
+                ,DELETED.[Pid_RootId]             
+                ,DELETED.[Pid_ImdbId]             
+                ,DELETED.[Pid_SeriesLink]         
+                ,DELETED.[Pid_EpisodeNumber]      
+                ,DELETED.[Pid_TitleMain]          
+                ,DELETED.[Pid_EpisodeTitle]       
+                ,DELETED.[Pid_SynopsisShort]      
+                ,DELETED.[Pid_SynopsisMedium]     
+                ,DELETED.[Pid_SynopsisLong]       
+                ,DELETED.[Pid_ProgramGenres]      
+                ,DELETED.[Pid_ParentalGuidance]   
+                ,DELETED.[Pid_CreditsList]        
+                ,DELETED.[Pid_ProgramImages]      
+                ,DELETED.[Pid_ProductionYear]     
+                ,DELETED.[Pid_ProductionLocation] 
+                ,DELETED.[Pid_RowChanges]         
+                ,DELETED.[id]       AS [Pid_ParentId]        
+                ,'U'                AS [Pid_Action]         
+                ,@CurrentDateTime   AS [Pid_CreatedDateTime]   
+        INTO    [ProgramInformationHistory]
         FROM ProgramInformationData Pid 
-            INNER JOIN @ProgramInformationDataTable TPid ON TPid.Pid_Crid = Pid.Pid_Crid
+            INNER JOIN @ProgramInformationDataTable TPid 
+                ON  TPid.Pid_Crid = Pid.Pid_Crid
+                AND (
+                            Pid.[Pid_TmsId]                != TPid.[Pid_TmsId]
+                         OR Pid.[Pid_RootId]               != TPid.[Pid_RootId]
+                         OR Pid.[Pid_ImdbId]               != TPid.[Pid_ImdbId]
+                         OR Pid.[Pid_SeriesLink]           != TPid.[Pid_SeriesLink]
+                         OR Pid.[Pid_EpisodeNumber]        != TPid.[Pid_EpisodeNumber]
+                         OR Pid.[Pid_TitleMain]            != TPid.[Pid_TitleMain]
+                         OR Pid.[Pid_EpisodeTitle]         != TPid.[Pid_EpisodeTitle]
+                         OR Pid.[Pid_SynopsisShort]        != TPid.[Pid_SynopsisShort]
+                         OR Pid.[Pid_SynopsisMedium]       != TPid.[Pid_SynopsisMedium]
+                         OR Pid.[Pid_SynopsisLong]         != TPid.[Pid_SynopsisLong]
+                         OR Pid.[Pid_ProgramGenres]        != TPid.[Pid_ProgramGenres]
+                         OR Pid.[Pid_ParentalGuidance]     != TPid.[Pid_ParentalGuidance]
+                         OR Pid.[Pid_CreditsList]          != TPid.[Pid_CreditsList]
+                         OR Pid.[Pid_ProgramImages]        != TPid.[Pid_ProgramImages]
+                         OR Pid.[Pid_ProductionYear]       != TPid.[Pid_ProductionYear]
+                         OR Pid.[Pid_ProductionLocation]   != TPid.[Pid_ProductionLocation]
+                         OR Pid.[Pid_RowChanges]           != TPid.[Pid_RowChanges]
+                )
 
         INSERT INTO ProgramInformationData
                 ([Pid_Crid]

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using Epg.Entities.Concrete;
 using Epg.File.Manager.Concrete.ArchiveManagement;
 using VM_EPG_Parser.Config;
 
@@ -29,7 +31,7 @@ namespace VM_EPG_Parser.WorkflowItems
             return string.Empty;
         }
 
-        public bool ProcessEpgArchive(string epgArchive)
+        public EpgScheduleFileHistoryEntities ProcessEpgArchive(string epgArchive)
         {
             try
             {
@@ -62,7 +64,27 @@ namespace VM_EPG_Parser.WorkflowItems
                             break;
                     }
                     ExtractedEpgFile = ZipManager.OutputEpgFile;
-                    return ZipManager.OperationsSuccessful;
+
+                    if (ZipManager.OperationsSuccessful)
+                    {
+                        var origionalFile = new FileInfo(epgArchive);
+                        var extractedFile = new FileInfo(ExtractedEpgFile);
+                        EpgScheduleFileHistoryEntities scheduleFileHistory = new EpgScheduleFileHistoryEntities()
+                        {
+                            EpgFilenameGZ = epgArchive,
+                            EpgFilenameExtracted = ExtractedEpgFile,
+                            EpgOriginalFileSize = FileSizeinMB(origionalFile.Length),
+                            EpgExtractedFileSize = FileSizeinMB(extractedFile.Length),
+                            EpgDateTimeRetrieved = DateTime.UtcNow,
+                            EpgDateTimeParsed = null,
+                            EpgDateTimeArchived = null,
+                            EpgArchiveLocation = AppSettings.EpgArchiveDirectory
+                        };
+                        return scheduleFileHistory;
+                    } else
+                    {
+                        return null;
+                    }
                 }
             }
             catch (Exception e)
@@ -70,8 +92,41 @@ namespace VM_EPG_Parser.WorkflowItems
                 Console.WriteLine(e);
                 throw;
             }
-            
-            return false;
+
+            return null;
+        }
+
+        public bool ArchiveActiveFile()
+        {
+            bool result;
+            try
+            {
+                Console.WriteLine("Archive EPG File");
+                ZipManager = new ZipArchiveManager();
+                ZipManager.OutputDirectoryPath = AppSettings.LocalWorkingDirectory;
+                ZipManager.CanArchive = AppSettings.EnableArchive;
+                ZipManager.EpgArchiveDirectory = AppSettings.EpgArchiveDirectory;
+
+                ZipManager.CleanExtractionDirectory();
+                result = true;
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            return result;
+        }
+        private string FileSizeinMB(long length)
+        {
+            if(length > 0)
+            {
+                return (length / 1000000) + " MB";
+            }
+            else
+            {
+                return string.Empty;
+            }
         }
     }
 }

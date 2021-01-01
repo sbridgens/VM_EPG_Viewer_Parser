@@ -14,11 +14,12 @@
     [Pid_ProgramGenres]      VARCHAR (1000) NULL,
     [Pid_ParentalGuidance]   NVARCHAR (MAX) NULL,
     [Pid_CreditsList]        NVARCHAR (MAX) NULL,
-    [Pid_ProgramImages]      NVARCHAR (MAX) NOT NULL,
+    [Pid_ProgramImages]      NVARCHAR (MAX) NULL,
     [Pid_ProductionYear]     VARCHAR (4)    NULL,
     [Pid_ProductionLocation] VARCHAR (4)    NULL,
     [Pid_RowChanges]         NVARCHAR (MAX) NULL,
     [Pid_ParentId]           INT            NOT NULL,
+    [Pid_Action]             CHAR(1)        NOT NULL,
     [Pid_CreatedDateTime]    DATETIME       NOT NULL
     CONSTRAINT [PK_ProgramInformationHistory] PRIMARY KEY CLUSTERED ([Id] ASC)
     CONSTRAINT [FK_ProgramInformationHistory_ProgramInformationData] FOREIGN KEY ([Pid_ParentId]) REFERENCES [dbo].[ProgramInformationData] ([Id])
