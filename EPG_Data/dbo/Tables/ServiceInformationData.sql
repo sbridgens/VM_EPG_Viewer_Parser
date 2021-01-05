@@ -1,5 +1,5 @@
 ﻿CREATE TABLE [dbo].[ServiceInformationData] (
-    [id]                    INT           IDENTITY (1, 1) NOT NULL,
+    [Id]                    INT           IDENTITY (1, 1) NOT NULL,
     [Sid_ServiceName]       VARCHAR (45)  NULL,
     [Sid_VM_ServiceId]      VARCHAR (10)  NOT NULL,
     [Sid_Epg_ServiceId]     VARCHAR (10)  NOT NULL,

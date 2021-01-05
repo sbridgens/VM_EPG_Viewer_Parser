@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Epg.Entities.Concrete.XMLEntities
@@ -14,13 +15,14 @@ namespace Epg.Entities.Concrete.XMLEntities
 
             if (tvaMain.ProgramDescription == null)
                 return dBMainEntities;
+
             //set List<ProgramInformationDataEntities> Programs = new List<ProgramInformationDataEntities>();
             foreach (var t in tvaMain.ProgramDescription.ProgramInformationTable)
             {
                 dBMainEntities.Programs.Add(MapProgram(t));
             }
 
-            //      set List<GroupInformationDataEntities> Groups = new List<GroupInformationDataEntities>();
+            //set List<GroupInformationDataEntities> Groups = new List<GroupInformationDataEntities>();
             foreach (var t in tvaMain.ProgramDescription.GroupInformationTable)
             {
                 dBMainEntities.Groups.Add(MapGroups(t));
@@ -29,7 +31,7 @@ namespace Epg.Entities.Concrete.XMLEntities
             //set List<ProgramScheduleDataEntities> ProgramSchedules = new List<ProgramScheduleDataEntities>();
             foreach (var t in tvaMain.ProgramDescription.ProgramLocationTable)
             {
-                dBMainEntities.ProgramSchedules.Add(MapProgramSchedules(t));
+                dBMainEntities.ProgramSchedules.AddRange(MapProgramSchedules(t));
             }
 
             //set List<ServiceInformationDataEntities> Services = new List<ServiceInformationDataEntities>();
@@ -53,7 +55,7 @@ namespace Epg.Entities.Concrete.XMLEntities
                 Pid_SeriesLink = programInformation.EpisodeOf?.crid,
                 Pid_EpisodeNumber = Convert.ToString(programInformation.EpisodeOf?.index),
                 Pid_TitleMain = programInformation.BasicDescription.Title?.Where(x => x.type.ToLower() == "main").FirstOrDefault()?.Value,
-                Pid_EpisodeTitle = string.Empty,
+                Pid_EpisodeTitle = programInformation.BasicDescription.Title?.Where(x => x.type.ToLower() == "episodetitle").FirstOrDefault()?.Value,
                 Pid_SynopsisShort = programInformation.BasicDescription.Synopsis?.Where(x => x.length.ToLower() == "short").FirstOrDefault()?.Value,
                 Pid_SynopsisMedium = programInformation.BasicDescription.Synopsis?.Where(x => x.length.ToLower() == "medium").FirstOrDefault()?.Value,
                 Pid_SynopsisLong = programInformation.BasicDescription.Synopsis?.Where(x => x.length.ToLower() == "long").FirstOrDefault()?.Value,
@@ -63,7 +65,6 @@ namespace Epg.Entities.Concrete.XMLEntities
                 Pid_ProgramImages = programInformation.BasicDescription.RelatedMaterial != null ? JsonConvert.SerializeObject(programInformation.BasicDescription.RelatedMaterial) : null,
                 Pid_ProductionYear = Convert.ToString(programInformation.BasicDescription.ProductionDate?.TimePoint),
                 Pid_ProductionLocation = programInformation.BasicDescription.ProductionLocation,
-                Pid_RowChanges = string.Empty
             };
         }
 
@@ -87,29 +88,35 @@ namespace Epg.Entities.Concrete.XMLEntities
                 Gid_CreditsList = string.Empty,
                 Gid_SeriesImages = groupInformation.BasicDescription.RelatedMaterial != null ? JsonConvert.SerializeObject(groupInformation.BasicDescription.RelatedMaterial) : null,
                 Gid_ProductionYear = groupInformation.BasicDescription.ProductionDate != null ? Convert.ToString(groupInformation.BasicDescription.ProductionDate.TimePoint) : null,
-                Gid_RowChanges = string.Empty
             };
         }
 
-        private static ProgramScheduleDataEntities MapProgramSchedules(TVAMainProgramDescriptionSchedule mainProgramDescriptionSchedule)
+        private static List<ProgramScheduleDataEntities> MapProgramSchedules(TVAMainProgramDescriptionSchedule mainProgramDescriptionSchedule)
         {
-            return new ProgramScheduleDataEntities()
+            List<ProgramScheduleDataEntities> result = new List<ProgramScheduleDataEntities>();
+
+            foreach (var t in mainProgramDescriptionSchedule.ScheduleEvent)
             {
-                Psd_ServiceIdReference = Convert.ToString(mainProgramDescriptionSchedule.serviceIDRef),
-                Psd_ScheduleStart = mainProgramDescriptionSchedule.start,
-                Psd_ScheduleEnd = mainProgramDescriptionSchedule.end,
-                Psd_ScheduleDuration = string.Empty,
-                Psd_ProgramCrid = string.Empty,
-                Psd_ProgramImi = string.Empty,
-                Psd_PurchaseList = string.Empty,
-                Psd_CaptionLanguage = string.Empty,
-                Psd_AV_Attributes = string.Empty,
-                Psd_TmsId = string.Empty,
-                //Psd_ScheduledStartTime      = string.Empty,
-                //Psd_ScheduledEndTime        = string.Empty,
-                Psd_EventDuration = string.Empty,
-                Psd_RowChange = string.Empty
-            };
+                result.Add(new ProgramScheduleDataEntities()
+                {
+                    Psd_ServiceIdReference = Convert.ToString(mainProgramDescriptionSchedule.serviceIDRef),
+                    Psd_ScheduleStart = mainProgramDescriptionSchedule.start,
+                    Psd_ScheduleEnd = mainProgramDescriptionSchedule.end,
+                    Psd_ScheduleDuration = t.PublishedDuration,
+                    Psd_ProgramCrid = t.Program.crid,
+                    Psd_ProgramImi = t.InstanceMetadataId,
+                    Psd_PurchaseList = t.InstanceDescription.PurchaseList != null ? JsonConvert.SerializeObject(t.InstanceDescription.PurchaseList): null,
+                    Psd_CaptionLanguage = string.Empty,
+                    Psd_AV_Attributes = t.InstanceDescription.AVAttributes != null ? JsonConvert.SerializeObject(t.InstanceDescription.AVAttributes): null,
+                    Psd_TmsId = string.Empty,
+                    Psd_ScheduledStartTime = t.PublishedStartTime,
+                    Psd_ScheduledEndTime = t.PublishedEndTime,
+                    Psd_EventDuration = t.PublishedDuration,
+                    Psd_RowChange = string.Empty
+                });
+            }
+
+            return result;
         }
 
         private static ServiceInformationDataEntities MapServices(TVAMainProgramDescriptionServiceInformation serviceInformation)

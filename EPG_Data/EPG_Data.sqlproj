@@ -69,10 +69,10 @@
     <Build Include="dbo\Tables\ProgramInformationData.sql" />
     <Build Include="dbo\Tables\ProgramScheduleData.sql" />
     <Build Include="dbo\Tables\ServiceInformationData.sql" />
-    <Build Include="dbo\Stored Procedures\EPG_InsertUpdate.sql" />
     <Build Include="dbo\Tables\GroupInformationHistory.sql" />
     <Build Include="dbo\Tables\ProgramInformationHistory.sql" />
     <Build Include="dbo\Tables\ProgramScheduleHistory.sql" />
     <Build Include="dbo\Tables\ServiceInformationHistory.sql" />
+    <Build Include="dbo\Stored Procedures\EPG_History_InsertUpdate.sql" />
   </ItemGroup>
 </Project>

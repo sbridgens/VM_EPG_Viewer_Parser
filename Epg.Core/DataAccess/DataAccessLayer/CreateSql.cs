@@ -41,10 +41,10 @@ namespace Epg.Core.DataAccess.Concrete.DataAccessLayer
             set { _staticConnectionStringKey = value; }
         }
         private string ProviderName => 
-            Configuration.GetSection("ConnectionStrings/Default/ProviderName").Value.ToLower();
+            Configuration.GetSection("ConnectionStrings:Default:ProviderName").Value.ToLower();
 
         private string ConnectionString => 
-            Configuration.GetSection("ConnectionStrings/Default/ConnectionString").Value.ToLower();
+            Configuration.GetSection("ConnectionStrings:Default:ConnectionString").Value.ToLower();
         
         private string IPAddress
         {

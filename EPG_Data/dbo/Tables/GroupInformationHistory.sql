@@ -1,5 +1,5 @@
 ﻿CREATE TABLE [dbo].[GroupInformationHistory] (
-    [id]                    INT            IDENTITY (1, 1) NOT NULL,
+    [Id]                    INT            IDENTITY (1, 1) NOT NULL,
     [Gid_GroupId]           VARCHAR (45)   NOT NULL,
     [Gid_ConnectorId]       VARCHAR (20)   NOT NULL,
     [Gid_Type]              VARCHAR (45)   NOT NULL,
@@ -17,7 +17,6 @@
     [Gid_ParentId]          INT            NOT NULL,
     [Gid_Action]            CHAR(1)        NOT NULL,
     [Gid_CreatedDateTime]   DATETIME       NOT NULL
-    CONSTRAINT [PK_GroupInformationHistory] PRIMARY KEY CLUSTERED ([Id] ASC),
-    CONSTRAINT [FK_GroupInformationHistory_GroupInformationData] FOREIGN KEY ([Gid_ParentId]) REFERENCES [dbo].[GroupInformationData] ([Id])
+    CONSTRAINT [PK_GroupInformationHistory] PRIMARY KEY CLUSTERED ([Id] ASC)
 );
 

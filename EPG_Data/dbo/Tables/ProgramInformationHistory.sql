@@ -1,5 +1,5 @@
 ﻿CREATE TABLE [dbo].[ProgramInformationHistory] (
-    [id]                     INT            IDENTITY (1, 1) NOT NULL,
+    [Id]                     INT            IDENTITY (1, 1) NOT NULL,
     [Pid_Crid]               VARCHAR (45)   NOT NULL,
     [Pid_TmsId]              VARCHAR (45)   NOT NULL,
     [Pid_RootId]             VARCHAR (45)   NOT NULL,
@@ -22,6 +22,5 @@
     [Pid_Action]             CHAR(1)        NOT NULL,
     [Pid_CreatedDateTime]    DATETIME       NOT NULL
     CONSTRAINT [PK_ProgramInformationHistory] PRIMARY KEY CLUSTERED ([Id] ASC)
-    CONSTRAINT [FK_ProgramInformationHistory_ProgramInformationData] FOREIGN KEY ([Pid_ParentId]) REFERENCES [dbo].[ProgramInformationData] ([Id])
 );
 

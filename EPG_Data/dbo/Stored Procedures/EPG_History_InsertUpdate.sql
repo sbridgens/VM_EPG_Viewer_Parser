@@ -7,10 +7,10 @@
     @EpgDateTimeParsed      DATETIME2,
     @EpgDateTimeArchived    DATETIME2,
     @EpgArchiveLocation     VARCHAR (45),
-    @GroupInformationData   xml,
-    @ProgramInformationData xml,
-    @ProgramScheduleData    xml,
-    @ServiceInformationData xml,
+    @GroupInformationData   XML,
+    @ProgramInformationData XML,
+    @ProgramScheduleData    XML,
+    @ServiceInformationData XML,
     @CurrentDateTime        DATETIME
 AS
 BEGIN
@@ -464,28 +464,82 @@ BEGIN
 
 		--Start GroupInformationData insert/update/delete operation
         DELETE  Gid
+        OUTPUT   
+                 DELETED.[Gid_GroupId]       
+                ,DELETED.[Gid_ConnectorId]   
+                ,DELETED.[Gid_Type]          
+                ,DELETED.[Gid_SeriesTitle]   
+                ,DELETED.[Gid_SeriesId]      
+                ,DELETED.[Gid_SeriesNumber]  
+                ,DELETED.[Gid_SeriesCrid]    
+                ,DELETED.[Gid_Synopsis]      
+                ,DELETED.[Gid_Genres]        
+                ,DELETED.[Gid_Language]      
+                ,DELETED.[Gid_CreditsList]   
+                ,DELETED.[Gid_SeriesImages]  
+                ,DELETED.[Gid_ProductionYear]
+                ,DELETED.[Gid_RowChanges]    
+                ,DELETED.[id]       AS [Gid_ParentId]        
+                ,'D'                AS [Gid_Action]         
+                ,@CurrentDateTime   AS [Gid_CreatedDateTime]   
+        INTO    [GroupInformationHistory]
         FROM    GroupInformationData Gid
             LEFT JOIN @GroupInformationDataTable TGid ON TGid.Gid_GroupId = Gid.Gid_GroupId
         WHERE   TGid.Gid_GroupId IS NULL
 
-        UPDATE  GroupInformationData 
+        UPDATE  Gid 
         SET    
-                 [Gid_GroupId]       = TGid.[Gid_GroupId]
-                ,[Gid_ConnectorId]   = TGid.[Gid_ConnectorId]
-                ,[Gid_Type]          = TGid.[Gid_Type]
-                ,[Gid_SeriesTitle]   = TGid.[Gid_SeriesTitle]
-                ,[Gid_SeriesId]      = TGid.[Gid_SeriesId]
-                ,[Gid_SeriesNumber]  = TGid.[Gid_SeriesNumber]
-                ,[Gid_SeriesCrid]    = TGid.[Gid_SeriesCrid]
-                ,[Gid_Synopsis]      = TGid.[Gid_Synopsis]
-                ,[Gid_Genres]        = TGid.[Gid_Genres]
-                ,[Gid_Language]      = TGid.[Gid_Language]
-                ,[Gid_CreditsList]   = TGid.[Gid_CreditsList]
-                ,[Gid_SeriesImages]  = TGid.[Gid_SeriesImages]
-                ,[Gid_ProductionYear]= TGid.[Gid_ProductionYear]
-                ,[Gid_RowChanges]    = TGid.[Gid_RowChanges]        
+                 [Gid_GroupId]          = TGid.[Gid_GroupId]
+                ,[Gid_ConnectorId]      = TGid.[Gid_ConnectorId]
+                ,[Gid_Type]             = TGid.[Gid_Type]
+                ,[Gid_SeriesTitle]      = TGid.[Gid_SeriesTitle]
+                ,[Gid_SeriesId]         = TGid.[Gid_SeriesId]
+                ,[Gid_SeriesNumber]     = TGid.[Gid_SeriesNumber]
+                ,[Gid_SeriesCrid]       = TGid.[Gid_SeriesCrid]
+                ,[Gid_Synopsis]         = TGid.[Gid_Synopsis]
+                ,[Gid_Genres]           = TGid.[Gid_Genres]
+                ,[Gid_Language]         = TGid.[Gid_Language]
+                ,[Gid_CreditsList]      = TGid.[Gid_CreditsList]
+                ,[Gid_SeriesImages]     = TGid.[Gid_SeriesImages]
+                ,[Gid_ProductionYear]   = TGid.[Gid_ProductionYear]
+                ,[Gid_RowChanges]       = TGid.[Gid_RowChanges]        
+        OUTPUT   
+                 DELETED.[Gid_GroupId]       
+                ,DELETED.[Gid_ConnectorId]   
+                ,DELETED.[Gid_Type]          
+                ,DELETED.[Gid_SeriesTitle]   
+                ,DELETED.[Gid_SeriesId]      
+                ,DELETED.[Gid_SeriesNumber]  
+                ,DELETED.[Gid_SeriesCrid]    
+                ,DELETED.[Gid_Synopsis]      
+                ,DELETED.[Gid_Genres]        
+                ,DELETED.[Gid_Language]      
+                ,DELETED.[Gid_CreditsList]   
+                ,DELETED.[Gid_SeriesImages]  
+                ,DELETED.[Gid_ProductionYear]
+                ,DELETED.[Gid_RowChanges]    
+                ,DELETED.[id]       AS [Gid_ParentId]        
+                ,'U'                AS [Gid_Action]         
+                ,@CurrentDateTime   AS [Gid_CreatedDateTime]   
+        INTO    [GroupInformationHistory]
         FROM GroupInformationData Gid 
-            INNER JOIN @GroupInformationDataTable TGid ON TGid.Gid_GroupId = Gid.Gid_GroupId
+            INNER JOIN @GroupInformationDataTable TGid 
+                ON  TGid.Gid_GroupId = Gid.Gid_GroupId
+                AND (
+                           Gid.[Gid_ConnectorId]        != TGid.[Gid_ConnectorId]
+                        OR Gid.[Gid_Type]               != TGid.[Gid_Type]
+                        OR Gid.[Gid_SeriesTitle]        != TGid.[Gid_SeriesTitle]
+                        OR Gid.[Gid_SeriesId]           != TGid.[Gid_SeriesId]
+                        OR Gid.[Gid_SeriesNumber]       != TGid.[Gid_SeriesNumber]
+                        OR Gid.[Gid_SeriesCrid]         != TGid.[Gid_SeriesCrid]
+                        OR Gid.[Gid_Synopsis]           != TGid.[Gid_Synopsis]
+                        OR Gid.[Gid_Genres]             != TGid.[Gid_Genres]
+                        OR Gid.[Gid_Language]           != TGid.[Gid_Language]
+                        OR Gid.[Gid_CreditsList]        != TGid.[Gid_CreditsList]
+                        OR Gid.[Gid_SeriesImages]       != TGid.[Gid_SeriesImages]
+                        OR Gid.[Gid_ProductionYear]     != TGid.[Gid_ProductionYear]
+                        OR Gid.[Gid_RowChanges]         != TGid.[Gid_RowChanges]        
+                    )
 
         INSERT INTO GroupInformationData
                 ([Gid_GroupId]       
@@ -517,13 +571,32 @@ BEGIN
                 ,TGid.[Gid_ProductionYear]
                 ,TGid.[Gid_RowChanges]    
 	    FROM    @GroupInformationDataTable TGid
-            LEFT JOIN GroupInformationData Gid ON TGid.Pid_Crid = Gid.Pid_Crid
+            LEFT JOIN GroupInformationData Gid ON TGid.Gid_GroupId = Gid.Gid_GroupId
         WHERE   Gid.Gid_GroupId IS NULL
 
 		--End GroupInformationData insert/update/delete operation
 
 		--Start ProgramScheduleData insert/update/delete operation
         DELETE  Psd 
+        OUTPUT   
+                 DELETED.[Psd_ServiceIdReference] 
+                ,DELETED.[Psd_ScheduleStart]      
+                ,DELETED.[Psd_ScheduleEnd]        
+                ,DELETED.[Psd_ScheduleDuration]   
+                ,DELETED.[Psd_ProgramCrid]        
+                ,DELETED.[Psd_ProgramImi]         
+                ,DELETED.[Psd_PurchaseList]       
+                ,DELETED.[Psd_CaptionLanguage]    
+                ,DELETED.[Psd_AV_Attributes]      
+                ,DELETED.[Psd_TmsId]              
+                ,DELETED.[Psd_ScheduledStartTime] 
+                ,DELETED.[Psd_ScheduledEndTime]   
+                ,DELETED.[Psd_EventDuration]      
+                ,DELETED.[Psd_RowChange]          
+                ,DELETED.[id]       AS [Psd_ParentId]        
+                ,'D'                AS [Psd_Action]         
+                ,@CurrentDateTime   AS [Psd_CreatedDateTime]   
+        INTO    [ProgramScheduleHistory]
         FROM ProgramScheduleData Psd
             LEFT JOIN @ProgramScheduleDataTable TPsd 
                 ON  TPsd.[Psd_ServiceIdReference]   = Psd.[Psd_ServiceIdReference]
@@ -532,29 +605,61 @@ BEGIN
                 AND TPsd.[Psd_ScheduleEnd]          = Psd.[Psd_ScheduleEnd]
         WHERE   TPsd.[Psd_ServiceIdReference] IS NULL
 
-        UPDATE  ProgramScheduleData 
+        UPDATE  Psd 
         SET    
-             [Psd_ServiceIdReference]       = TPsd.[Psd_ServiceIdReference]
-            ,[Psd_ScheduleStart]            = TPsd.[Psd_ScheduleStart]
-            ,[Psd_ScheduleEnd]              = TPsd.[Psd_ScheduleEnd]
-            ,[Psd_ScheduleDuration]         = TPsd.[Psd_ScheduleDuration]
-            ,[Psd_ProgramCrid]              = TPsd.[Psd_ProgramCrid]
-            ,[Psd_ProgramImi]               = TPsd.[Psd_ProgramImi]
-            ,[Psd_PurchaseList]             = TPsd.[Psd_PurchaseList]
-            ,[Psd_CaptionLanguage]          = TPsd.[Psd_CaptionLanguage]
-            ,[Psd_AV_Attributes]            = TPsd.[Psd_AV_Attributes]
-            ,[Psd_TmsId]                    = TPsd.[Psd_TmsId]
-            ,[Psd_ScheduledStartTime]       = TPsd.[Psd_ScheduledStartTime]
-            ,[Psd_ScheduledEndTime]         = TPsd.[Psd_ScheduledEndTime]
-            ,[Psd_EventDuration]            = TPsd.[Psd_EventDuration]
-            ,[Psd_RowChange]                = TPsd.[Psd_RowChange]
+                 [Psd_ServiceIdReference]       = TPsd.[Psd_ServiceIdReference]
+                ,[Psd_ScheduleStart]            = TPsd.[Psd_ScheduleStart]
+                ,[Psd_ScheduleEnd]              = TPsd.[Psd_ScheduleEnd]
+                ,[Psd_ScheduleDuration]         = TPsd.[Psd_ScheduleDuration]
+                ,[Psd_ProgramCrid]              = TPsd.[Psd_ProgramCrid]
+                ,[Psd_ProgramImi]               = TPsd.[Psd_ProgramImi]
+                ,[Psd_PurchaseList]             = TPsd.[Psd_PurchaseList]
+                ,[Psd_CaptionLanguage]          = TPsd.[Psd_CaptionLanguage]
+                ,[Psd_AV_Attributes]            = TPsd.[Psd_AV_Attributes]
+                ,[Psd_TmsId]                    = TPsd.[Psd_TmsId]
+                ,[Psd_ScheduledStartTime]       = TPsd.[Psd_ScheduledStartTime]
+                ,[Psd_ScheduledEndTime]         = TPsd.[Psd_ScheduledEndTime]
+                ,[Psd_EventDuration]            = TPsd.[Psd_EventDuration]
+                ,[Psd_RowChange]                = TPsd.[Psd_RowChange]
+        OUTPUT   
+                 DELETED.[Psd_ServiceIdReference] 
+                ,DELETED.[Psd_ScheduleStart]      
+                ,DELETED.[Psd_ScheduleEnd]        
+                ,DELETED.[Psd_ScheduleDuration]   
+                ,DELETED.[Psd_ProgramCrid]        
+                ,DELETED.[Psd_ProgramImi]         
+                ,DELETED.[Psd_PurchaseList]       
+                ,DELETED.[Psd_CaptionLanguage]    
+                ,DELETED.[Psd_AV_Attributes]      
+                ,DELETED.[Psd_TmsId]              
+                ,DELETED.[Psd_ScheduledStartTime] 
+                ,DELETED.[Psd_ScheduledEndTime]   
+                ,DELETED.[Psd_EventDuration]      
+                ,DELETED.[Psd_RowChange]          
+                ,DELETED.[id]       AS [Psd_ParentId]        
+                ,'U'                AS [Psd_Action]         
+                ,@CurrentDateTime   AS [Psd_CreatedDateTime]   
+        INTO    [ProgramScheduleHistory]
         FROM ProgramScheduleData Psd 
             INNER JOIN @ProgramScheduleDataTable TPsd 
                 ON  TPsd.[Psd_ServiceIdReference]   = Psd.[Psd_ServiceIdReference]
                 AND TPsd.[Psd_ProgramCrid]          = Psd.[Psd_ProgramCrid]
                 AND TPsd.[Psd_ScheduleStart]        = Psd.[Psd_ScheduleStart]
                 AND TPsd.[Psd_ScheduleEnd]          = Psd.[Psd_ScheduleEnd]
-
+                AND 
+                    (
+                            Psd.[Psd_ScheduleDuration]         != TPsd.[Psd_ScheduleDuration]
+                        OR  Psd.[Psd_ProgramImi]               != TPsd.[Psd_ProgramImi]
+                        OR  Psd.[Psd_PurchaseList]             != TPsd.[Psd_PurchaseList]
+                        OR  Psd.[Psd_CaptionLanguage]          != TPsd.[Psd_CaptionLanguage]
+                        OR  Psd.[Psd_AV_Attributes]            != TPsd.[Psd_AV_Attributes]
+                        OR  Psd.[Psd_TmsId]                    != TPsd.[Psd_TmsId]
+                        OR  Psd.[Psd_ScheduledStartTime]       != TPsd.[Psd_ScheduledStartTime]
+                        OR  Psd.[Psd_ScheduledEndTime]         != TPsd.[Psd_ScheduledEndTime]
+                        OR  Psd.[Psd_EventDuration]            != TPsd.[Psd_EventDuration]
+                        OR  Psd.[Psd_RowChange]                != TPsd.[Psd_RowChange]
+                    )
+        
         INSERT INTO ProgramScheduleData
                 ([Psd_ServiceIdReference] 
                 ,[Psd_ScheduleStart]      
@@ -597,21 +702,56 @@ BEGIN
 
 		--Start ServiceInformationData insert/update/delete operation
         DELETE  [Sid]
+        OUTPUT   
+                 DELETED.[Sid_ServiceName]       
+                ,DELETED.[Sid_VM_ServiceId]      
+                ,DELETED.[Sid_Epg_ServiceId]     
+                ,DELETED.[Sid_ServiceLogo]       
+                ,DELETED.[Sid_ChannelResolution] 
+                ,DELETED.[Sid_VM_ServiceGroup]   
+                ,DELETED.[Sid_RowChanges]        
+                ,DELETED.[id]       AS [Sid_ParentId]        
+                ,'D'                AS [Sid_Action]         
+                ,@CurrentDateTime   AS [Sid_CreatedDateTime]   
+        INTO    [ServiceInformationHistory]
         FROM    ServiceInformationData [Sid]
             LEFT JOIN @ServiceInformationDataTable TSid ON TSid.[Sid_Epg_ServiceId] = [Sid].[Sid_Epg_ServiceId]
         WHERE   TSid.[Sid_Epg_ServiceId] IS NULL
 
-        UPDATE  ServiceInformationData 
+        UPDATE  [Sid] 
         SET    
-             [Sid_ServiceName]       = TSid.[Sid_ServiceName]       
-            ,[Sid_VM_ServiceId]      = TSid.[Sid_VM_ServiceId]      
-            ,[Sid_Epg_ServiceId]     = TSid.[Sid_Epg_ServiceId]     
-            ,[Sid_ServiceLogo]       = TSid.[Sid_ServiceLogo]       
-            ,[Sid_ChannelResolution] = TSid.[Sid_ChannelResolution] 
-            ,[Sid_VM_ServiceGroup]   = TSid.[Sid_VM_ServiceGroup]   
-            ,[Sid_RowChanges]        = TSid.[Sid_RowChanges]        
+                 [Sid_ServiceName]       = TSid.[Sid_ServiceName]       
+                ,[Sid_VM_ServiceId]      = TSid.[Sid_VM_ServiceId]      
+                ,[Sid_Epg_ServiceId]     = TSid.[Sid_Epg_ServiceId]     
+                ,[Sid_ServiceLogo]       = TSid.[Sid_ServiceLogo]       
+                ,[Sid_ChannelResolution] = TSid.[Sid_ChannelResolution] 
+                ,[Sid_VM_ServiceGroup]   = TSid.[Sid_VM_ServiceGroup]   
+                ,[Sid_RowChanges]        = TSid.[Sid_RowChanges]        
+        OUTPUT   
+                 DELETED.[Sid_ServiceName]       
+                ,DELETED.[Sid_VM_ServiceId]      
+                ,DELETED.[Sid_Epg_ServiceId]     
+                ,DELETED.[Sid_ServiceLogo]       
+                ,DELETED.[Sid_ChannelResolution] 
+                ,DELETED.[Sid_VM_ServiceGroup]   
+                ,DELETED.[Sid_RowChanges]        
+                ,DELETED.[id]       AS [Sid_ParentId]        
+                ,'U'                AS [Sid_Action]         
+                ,@CurrentDateTime   AS [Sid_CreatedDateTime]   
+        INTO    [ServiceInformationHistory]
         FROM ServiceInformationData [Sid]
-            INNER JOIN @ServiceInformationDataTable TSid ON TSid.[Sid_Epg_ServiceId] = [Sid].[Sid_Epg_ServiceId]
+            INNER JOIN @ServiceInformationDataTable TSid 
+                ON  TSid.[Sid_Epg_ServiceId] = [Sid].[Sid_Epg_ServiceId]
+                AND 
+                    (
+                            [Sid].[Sid_ServiceName]           != TSid.[Sid_ServiceName]       
+                        OR  [Sid].[Sid_VM_ServiceId]          != TSid.[Sid_VM_ServiceId]      
+                        OR  [Sid].[Sid_Epg_ServiceId]         != TSid.[Sid_Epg_ServiceId]     
+                        OR  [Sid].[Sid_ServiceLogo]           != TSid.[Sid_ServiceLogo]       
+                        OR  [Sid].[Sid_ChannelResolution]     != TSid.[Sid_ChannelResolution] 
+                        OR  [Sid].[Sid_VM_ServiceGroup]       != TSid.[Sid_VM_ServiceGroup]   
+                        OR  [Sid].[Sid_RowChanges]            != TSid.[Sid_RowChanges]        
+                    )
 
         INSERT INTO ServiceInformationData
                 ([Sid_ServiceName]       

@@ -1,5 +1,5 @@
 ﻿CREATE TABLE [dbo].[GroupInformationData] (
-    [id]                 INT            IDENTITY (1, 1) NOT NULL,
+    [Id]                 INT            IDENTITY (1, 1) NOT NULL,
     [Gid_GroupId]        VARCHAR (45)   NOT NULL,
     [Gid_ConnectorId]    VARCHAR (20)   NOT NULL,
     [Gid_Type]           VARCHAR (45)   NOT NULL,

@@ -1,5 +1,5 @@
 ﻿CREATE TABLE [dbo].[ProgramInformationData] (
-    [id]                     INT            IDENTITY (1, 1) NOT NULL,
+    [Id]                     INT            IDENTITY (1, 1) NOT NULL,
     [Pid_Crid]               VARCHAR (45)   NOT NULL,
     [Pid_TmsId]              VARCHAR (45)   NOT NULL,
     [Pid_RootId]             VARCHAR (45)   NOT NULL,

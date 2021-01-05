@@ -1,5 +1,5 @@
 ﻿CREATE TABLE [dbo].[EpgScheduleFileHistory] (
-    [id]                   INT           IDENTITY (1, 1) NOT NULL,
+    [Id]                   INT           IDENTITY (1, 1) NOT NULL,
     [EpgFilenameGZ]        VARCHAR (45)  NOT NULL,
     [EpgFilenameExtracted] VARCHAR (45)  NOT NULL,
     [EpgOriginalFileSize]  VARCHAR (10)  NOT NULL,

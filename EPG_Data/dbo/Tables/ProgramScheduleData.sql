@@ -1,5 +1,5 @@
 ﻿CREATE TABLE [dbo].[ProgramScheduleData] (
-    [id]                     INT            IDENTITY (1, 1) NOT NULL,
+    [Id]                     INT            IDENTITY (1, 1) NOT NULL,
     [Psd_ServiceIdReference] VARCHAR (10)   NOT NULL,
     [Psd_ScheduleStart]      DATETIME       NOT NULL,
     [Psd_ScheduleEnd]        DATETIME       NOT NULL,

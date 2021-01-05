@@ -6,6 +6,7 @@ using Epg.Serialization.Concrete;
 using Microsoft.Extensions.Configuration;
 using System.Data;
 using Epg.Core.DataAccess.DataAccessLayer;
+using System;
 
 namespace Epg.DataAccess.Concrete
 {
@@ -32,7 +33,8 @@ namespace Epg.DataAccess.Concrete
             sql.AddParameter("ProgramInformationData", tVADBMainEntities.Programs.ToXML());
             sql.AddParameter("ProgramScheduleData", tVADBMainEntities.ProgramSchedules.ToXML());
             sql.AddParameter("ServiceInformationData", tVADBMainEntities.Services.ToXML());
-            sql.ExecuteNonQuery("EPG_InsertUpdate", CommandType.StoredProcedure);
+            sql.AddParameter("CurrentDateTime", DateTime.UtcNow);
+            sql.ExecuteNonQuery("EPG_History_InsertUpdate", CommandType.StoredProcedure);
         }
 
 

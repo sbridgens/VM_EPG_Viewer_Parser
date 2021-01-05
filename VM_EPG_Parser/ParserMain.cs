@@ -55,6 +55,7 @@ namespace VM_EPG_Parser
 
                 TVADBMainEntities dbMainEntity = tVAMain.GetDbEntity(scheduleFileHistory);
                 EpgDataSaveOperations.InsertUpdateEpgData(dbMainEntity);
+                Console.WriteLine("Data inserted successfully.");
             }
             else 
             {
