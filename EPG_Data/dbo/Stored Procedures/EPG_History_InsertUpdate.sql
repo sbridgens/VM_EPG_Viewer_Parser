@@ -36,291 +36,17 @@ BEGIN
 	DECLARE @Id INT
     SET @Id = SCOPE_IDENTITY();
 
-    --Start ProgramInformationData insert into templary table from xml
-    DECLARE @ProgramInformationDataTable AS TABLE (
-        [Id]                     INT            IDENTITY (1, 1) NOT NULL,
-        [Pid_Crid]               VARCHAR (45)   NOT NULL,
-        [Pid_TmsId]              VARCHAR (45)   NOT NULL,
-        [Pid_RootId]             VARCHAR (45)   NOT NULL,
-        [Pid_ImdbId]             VARCHAR (15)   NULL,
-        [Pid_SeriesLink]         VARCHAR (45)   NULL,
-        [Pid_EpisodeNumber]      VARCHAR (4)    NULL,
-        [Pid_TitleMain]          VARCHAR (120)  NOT NULL,
-        [Pid_EpisodeTitle]       VARCHAR (120)  NULL,
-        [Pid_SynopsisShort]      VARCHAR (250)  NULL,
-        [Pid_SynopsisMedium]     VARCHAR (500)  NULL,
-        [Pid_SynopsisLong]       VARCHAR (1000) NULL,
-        [Pid_ProgramGenres]      VARCHAR (1000) NULL,
-        [Pid_ParentalGuidance]   NVARCHAR (MAX) NULL,
-        [Pid_CreditsList]        NVARCHAR (MAX) NULL,
-        [Pid_ProgramImages]      NVARCHAR (MAX) NOT NULL,
-        [Pid_ProductionYear]     VARCHAR (4)    NULL,
-        [Pid_ProductionLocation] VARCHAR (4)    NULL,
-        [Pid_RowChanges]         NVARCHAR (MAX) NULL
-    );
-
 	DECLARE @pid int
     EXEC sp_xml_preparedocument @pid OUTPUT, @ProgramInformationData;
-
-	INSERT INTO @ProgramInformationDataTable
-            ([Pid_Crid]
-            ,[Pid_TmsId]
-            ,[Pid_RootId]
-            ,[Pid_ImdbId]
-            ,[Pid_SeriesLink]
-            ,[Pid_EpisodeNumber]
-            ,[Pid_TitleMain]
-            ,[Pid_EpisodeTitle]
-            ,[Pid_SynopsisShort]
-            ,[Pid_SynopsisMedium]
-            ,[Pid_SynopsisLong]
-            ,[Pid_ProgramGenres]
-            ,[Pid_ParentalGuidance]
-            ,[Pid_CreditsList]
-            ,[Pid_ProgramImages]
-            ,[Pid_ProductionYear]
-            ,[Pid_ProductionLocation]
-            ,[Pid_RowChanges])
-    SELECT   [Pid_Crid]
-            ,[Pid_TmsId]
-            ,[Pid_RootId]
-            ,[Pid_ImdbId]
-            ,[Pid_SeriesLink]
-            ,[Pid_EpisodeNumber]
-            ,[Pid_TitleMain]
-            ,[Pid_EpisodeTitle]
-            ,[Pid_SynopsisShort]
-            ,[Pid_SynopsisMedium]
-            ,[Pid_SynopsisLong]
-            ,[Pid_ProgramGenres]
-            ,[Pid_ParentalGuidance]
-            ,[Pid_CreditsList]
-            ,[Pid_ProgramImages]
-            ,[Pid_ProductionYear]
-            ,[Pid_ProductionLocation]
-            ,[Pid_RowChanges]
-	FROM OPENXML (@pid, 'ArrayOfProgramInformationDataEntities/ProgramInformationDataEntities',2)
-	WITH (  [id]                     INT            ,
-            [Pid_Crid]               VARCHAR (45)   ,
-            [Pid_TmsId]              VARCHAR (45)   ,
-            [Pid_RootId]             VARCHAR (45)   ,
-            [Pid_ImdbId]             VARCHAR (15)   ,
-            [Pid_SeriesLink]         VARCHAR (45)   ,
-            [Pid_EpisodeNumber]      VARCHAR (4)    ,
-            [Pid_TitleMain]          VARCHAR (120)  ,
-            [Pid_EpisodeTitle]       VARCHAR (120)  ,
-            [Pid_SynopsisShort]      VARCHAR (250)  ,
-            [Pid_SynopsisMedium]     VARCHAR (500)  ,
-            [Pid_SynopsisLong]       VARCHAR (1000) ,
-            [Pid_ProgramGenres]      VARCHAR (1000) ,
-            [Pid_ParentalGuidance]   NVARCHAR (MAX) ,
-            [Pid_CreditsList]        NVARCHAR (MAX) ,
-            [Pid_ProgramImages]      NVARCHAR (MAX) ,
-            [Pid_ProductionYear]     VARCHAR (4)    ,
-            [Pid_ProductionLocation] VARCHAR (4)    ,
-            [Pid_RowChanges]         NVARCHAR (MAX) );
-    
-	EXEC sp_xml_removedocument @pid
-    
-    --End ProgramInformationData insert into templary table from xml
-
-    --Start GroupInformationData insert into templary table from xml
-    DECLARE @GroupInformationDataTable AS TABLE (
-        [id]                 INT            IDENTITY (1, 1) NOT NULL,
-        [Gid_GroupId]        VARCHAR (45)   NOT NULL,
-        [Gid_ConnectorId]    VARCHAR (20)   NOT NULL,
-        [Gid_Type]           VARCHAR (45)   NOT NULL,
-        [Gid_SeriesTitle]    VARCHAR (45)   NOT NULL,
-        [Gid_SeriesId]       VARCHAR (15)   NOT NULL,
-        [Gid_SeriesNumber]   VARCHAR (15)   NOT NULL,
-        [Gid_SeriesCrid]     VARCHAR (45)   NOT NULL,
-        [Gid_Synopsis]       NVARCHAR (MAX) NOT NULL,
-        [Gid_Genres]         NVARCHAR (MAX) NULL,
-        [Gid_Language]       VARCHAR (5)    NULL,
-        [Gid_CreditsList]    NVARCHAR (MAX) NULL,
-        [Gid_SeriesImages]   NVARCHAR (MAX) NOT NULL,
-        [Gid_ProductionYear] VARCHAR (45)   NULL,
-        [Gid_RowChanges]     NVARCHAR (MAX) NULL
-    );
 
 	DECLARE @gid int
     EXEC sp_xml_preparedocument @gid OUTPUT, @GroupInformationData;
 
-	INSERT INTO @GroupInformationDataTable
-            ([Gid_GroupId]       
-            ,[Gid_ConnectorId]   
-            ,[Gid_Type]          
-            ,[Gid_SeriesTitle]   
-            ,[Gid_SeriesId]      
-            ,[Gid_SeriesNumber]  
-            ,[Gid_SeriesCrid]    
-            ,[Gid_Synopsis]      
-            ,[Gid_Genres]        
-            ,[Gid_Language]      
-            ,[Gid_CreditsList]   
-            ,[Gid_SeriesImages]  
-            ,[Gid_ProductionYear]
-            ,[Gid_RowChanges] )
-    SELECT   [Gid_GroupId]       
-            ,[Gid_ConnectorId]   
-            ,[Gid_Type]          
-            ,[Gid_SeriesTitle]   
-            ,[Gid_SeriesId]      
-            ,[Gid_SeriesNumber]  
-            ,[Gid_SeriesCrid]    
-            ,[Gid_Synopsis]      
-            ,[Gid_Genres]        
-            ,[Gid_Language]      
-            ,[Gid_CreditsList]   
-            ,[Gid_SeriesImages]  
-            ,[Gid_ProductionYear]
-            ,[Gid_RowChanges]    
-	FROM OPENXML (@gid, 'ArrayOfGroupInformationDataEntities/GroupInformationDataEntities',2)
-	WITH (  
-            [id]                 INT            ,
-            [Gid_GroupId]        VARCHAR (45)   ,
-            [Gid_ConnectorId]    VARCHAR (20)   ,
-            [Gid_Type]           VARCHAR (45)   ,
-            [Gid_SeriesTitle]    VARCHAR (45)   ,
-            [Gid_SeriesId]       VARCHAR (15)   ,
-            [Gid_SeriesNumber]   VARCHAR (15)   ,
-            [Gid_SeriesCrid]     VARCHAR (45)   ,
-            [Gid_Synopsis]       NVARCHAR (MAX) ,
-            [Gid_Genres]         NVARCHAR (MAX) ,
-            [Gid_Language]       VARCHAR (5)    ,
-            [Gid_CreditsList]    NVARCHAR (MAX) ,
-            [Gid_SeriesImages]   NVARCHAR (MAX) ,
-            [Gid_ProductionYear] VARCHAR (45)   ,
-            [Gid_RowChanges]     NVARCHAR (MAX) 
-        );
-    
-	EXEC sp_xml_removedocument @gid
-    
-    --End GroupInformationData insert into templary table from xml
-
-    --Start ProgramScheduleData insert into templary table from xml
-    DECLARE @ProgramScheduleDataTable AS TABLE (
-        [id]                     INT            IDENTITY (1, 1) NOT NULL,
-        [Psd_ServiceIdReference] VARCHAR (10)   NOT NULL,
-        [Psd_ScheduleStart]      DATETIME       NOT NULL,
-        [Psd_ScheduleEnd]        DATETIME       NOT NULL,
-        [Psd_ScheduleDuration]   VARCHAR (5)    NOT NULL,
-        [Psd_ProgramCrid]        VARCHAR (45)   NOT NULL,
-        [Psd_ProgramImi]         VARCHAR (20)   NOT NULL,
-        [Psd_PurchaseList]       NVARCHAR (MAX) NULL,
-        [Psd_CaptionLanguage]    VARCHAR (5)    NULL,
-        [Psd_AV_Attributes]      NVARCHAR (MAX) NULL,
-        [Psd_TmsId]              VARCHAR (20)   NOT NULL,
-        [Psd_ScheduledStartTime] DATETIME       NOT NULL,
-        [Psd_ScheduledEndTime]   DATETIME       NOT NULL,
-        [Psd_EventDuration]      VARCHAR (10)   NOT NULL,
-        [Psd_RowChange]          NVARCHAR (MAX) NULL
-    );
-
 	DECLARE @psd int
     EXEC sp_xml_preparedocument @psd OUTPUT, @ProgramScheduleData;
 
-	INSERT INTO @ProgramScheduleDataTable
-            ([Psd_ServiceIdReference] 
-            ,[Psd_ScheduleStart]      
-            ,[Psd_ScheduleEnd]        
-            ,[Psd_ScheduleDuration]   
-            ,[Psd_ProgramCrid]        
-            ,[Psd_ProgramImi]         
-            ,[Psd_PurchaseList]       
-            ,[Psd_CaptionLanguage]    
-            ,[Psd_AV_Attributes]      
-            ,[Psd_TmsId]              
-            ,[Psd_ScheduledStartTime] 
-            ,[Psd_ScheduledEndTime]   
-            ,[Psd_EventDuration]      
-            ,[Psd_RowChange] )
-    SELECT   
-             [Psd_ServiceIdReference] 
-            ,[Psd_ScheduleStart]      
-            ,[Psd_ScheduleEnd]        
-            ,[Psd_ScheduleDuration]   
-            ,[Psd_ProgramCrid]        
-            ,[Psd_ProgramImi]         
-            ,[Psd_PurchaseList]       
-            ,[Psd_CaptionLanguage]    
-            ,[Psd_AV_Attributes]      
-            ,[Psd_TmsId]              
-            ,[Psd_ScheduledStartTime] 
-            ,[Psd_ScheduledEndTime]   
-            ,[Psd_EventDuration]      
-            ,[Psd_RowChange]          
-	FROM OPENXML (@psd, 'ArrayOfProgramScheduleDataEntities/ProgramScheduleDataEntities',2)
-	WITH (  
-            [id]                     INT           ,
-            [Psd_ServiceIdReference] VARCHAR (10)  ,
-            [Psd_ScheduleStart]      DATETIME      ,
-            [Psd_ScheduleEnd]        DATETIME      ,
-            [Psd_ScheduleDuration]   VARCHAR (5)   ,
-            [Psd_ProgramCrid]        VARCHAR (45)  ,
-            [Psd_ProgramImi]         VARCHAR (20)  ,
-            [Psd_PurchaseList]       NVARCHAR (MAX),
-            [Psd_CaptionLanguage]    VARCHAR (5)   ,
-            [Psd_AV_Attributes]      NVARCHAR (MAX),
-            [Psd_TmsId]              VARCHAR (20)  ,
-            [Psd_ScheduledStartTime] DATETIME      ,
-            [Psd_ScheduledEndTime]   DATETIME      ,
-            [Psd_EventDuration]      VARCHAR (10)  ,
-            [Psd_RowChange]          NVARCHAR (MAX)
-        );
-    
-	EXEC sp_xml_removedocument @psd
-    
-    --End ProgramScheduleData insert into templary table from xml
-
-    --Start ServiceInformationData insert into templary table from xml
-    DECLARE @ServiceInformationDataTable AS TABLE (
-        [id]                    INT           IDENTITY (1, 1) NOT NULL,
-        [Sid_ServiceName]       VARCHAR (45)  NULL,
-        [Sid_VM_ServiceId]      VARCHAR (10)  NOT NULL,
-        [Sid_Epg_ServiceId]     VARCHAR (10)  NOT NULL,
-        [Sid_ServiceLogo]       VARCHAR (250) NOT NULL,
-        [Sid_ChannelResolution] VARCHAR (3)   NOT NULL,
-        [Sid_VM_ServiceGroup]   VARCHAR (250) NOT NULL,
-        [Sid_RowChanges]        VARCHAR (45)  NULL
-    );
-
 	DECLARE @sid int
     EXEC sp_xml_preparedocument @sid OUTPUT, @ServiceInformationData;
-
-	INSERT INTO @ServiceInformationDataTable
-            (
-             [Sid_ServiceName]       
-            ,[Sid_VM_ServiceId]      
-            ,[Sid_Epg_ServiceId]     
-            ,[Sid_ServiceLogo]       
-            ,[Sid_ChannelResolution] 
-            ,[Sid_VM_ServiceGroup]   
-            ,[Sid_RowChanges]        
-            )
-    SELECT   
-             [Sid_ServiceName]       
-            ,[Sid_VM_ServiceId]      
-            ,[Sid_Epg_ServiceId]     
-            ,[Sid_ServiceLogo]       
-            ,[Sid_ChannelResolution] 
-            ,[Sid_VM_ServiceGroup]   
-            ,[Sid_RowChanges]        
-	FROM OPENXML (@sid, 'ArrayOfServiceInformationDataEntities/ServiceInformationDataEntities',2)
-	WITH (  
-            [id]                    INT          ,
-            [Sid_ServiceName]       VARCHAR (45) ,
-            [Sid_VM_ServiceId]      VARCHAR (10) ,
-            [Sid_Epg_ServiceId]     VARCHAR (10) ,
-            [Sid_ServiceLogo]       VARCHAR (250),
-            [Sid_ChannelResolution] VARCHAR (3)  ,
-            [Sid_VM_ServiceGroup]   VARCHAR (250),
-            [Sid_RowChanges]        VARCHAR (45) 
-        );
-    
-	EXEC sp_xml_removedocument @sid
-    
-    --End ProgramInformationData insert into templary table from xml
 
 	BEGIN TRANSACTION EPG_InsertUpdate
 	BEGIN TRY 
@@ -350,7 +76,46 @@ BEGIN
                 ,@CurrentDateTime   AS [Pid_CreatedDateTime]   
         INTO    [ProgramInformationHistory]
         FROM    ProgramInformationData Pid
-            LEFT JOIN @ProgramInformationDataTable TPid ON TPid.Pid_Crid = Pid.Pid_Crid
+            LEFT JOIN   (
+                        SELECT   [Pid_Crid]
+                                ,[Pid_TmsId]
+                                ,[Pid_RootId]
+                                ,[Pid_ImdbId]
+                                ,[Pid_SeriesLink]
+                                ,[Pid_EpisodeNumber]
+                                ,[Pid_TitleMain]
+                                ,[Pid_EpisodeTitle]
+                                ,[Pid_SynopsisShort]
+                                ,[Pid_SynopsisMedium]
+                                ,[Pid_SynopsisLong]
+                                ,[Pid_ProgramGenres]
+                                ,[Pid_ParentalGuidance]
+                                ,[Pid_CreditsList]
+                                ,[Pid_ProgramImages]
+                                ,[Pid_ProductionYear]
+                                ,[Pid_ProductionLocation]
+                                ,[Pid_RowChanges]
+	                    FROM OPENXML (@pid, 'ArrayOfProgramInformationDataEntities/ProgramInformationDataEntities',2)
+	                    WITH (  [id]                     INT            ,
+                                [Pid_Crid]               VARCHAR (45)   ,
+                                [Pid_TmsId]              VARCHAR (45)   ,
+                                [Pid_RootId]             VARCHAR (45)   ,
+                                [Pid_ImdbId]             VARCHAR (15)   ,
+                                [Pid_SeriesLink]         VARCHAR (45)   ,
+                                [Pid_EpisodeNumber]      VARCHAR (4)    ,
+                                [Pid_TitleMain]          VARCHAR (120)  ,
+                                [Pid_EpisodeTitle]       VARCHAR (120)  ,
+                                [Pid_SynopsisShort]      VARCHAR (250)  ,
+                                [Pid_SynopsisMedium]     VARCHAR (500)  ,
+                                [Pid_SynopsisLong]       VARCHAR (1000) ,
+                                [Pid_ProgramGenres]      VARCHAR (1000) ,
+                                [Pid_ParentalGuidance]   NVARCHAR (MAX) ,
+                                [Pid_CreditsList]        NVARCHAR (MAX) ,
+                                [Pid_ProgramImages]      NVARCHAR (MAX) ,
+                                [Pid_ProductionYear]     VARCHAR (4)    ,
+                                [Pid_ProductionLocation] VARCHAR (4)    ,
+                                [Pid_RowChanges]         NVARCHAR (MAX) )
+                        ) TPid ON TPid.Pid_Crid = Pid.Pid_Crid
         WHERE   TPid.Pid_Crid IS NULL
 
         UPDATE  Pid 
@@ -397,7 +162,46 @@ BEGIN
                 ,@CurrentDateTime   AS [Pid_CreatedDateTime]   
         INTO    [ProgramInformationHistory]
         FROM ProgramInformationData Pid 
-            INNER JOIN @ProgramInformationDataTable TPid 
+            INNER JOIN (
+                        SELECT   [Pid_Crid]
+                                ,[Pid_TmsId]
+                                ,[Pid_RootId]
+                                ,[Pid_ImdbId]
+                                ,[Pid_SeriesLink]
+                                ,[Pid_EpisodeNumber]
+                                ,[Pid_TitleMain]
+                                ,[Pid_EpisodeTitle]
+                                ,[Pid_SynopsisShort]
+                                ,[Pid_SynopsisMedium]
+                                ,[Pid_SynopsisLong]
+                                ,[Pid_ProgramGenres]
+                                ,[Pid_ParentalGuidance]
+                                ,[Pid_CreditsList]
+                                ,[Pid_ProgramImages]
+                                ,[Pid_ProductionYear]
+                                ,[Pid_ProductionLocation]
+                                ,[Pid_RowChanges]
+	                    FROM OPENXML (@pid, 'ArrayOfProgramInformationDataEntities/ProgramInformationDataEntities',2)
+	                    WITH (  [id]                     INT            ,
+                                [Pid_Crid]               VARCHAR (45)   ,
+                                [Pid_TmsId]              VARCHAR (45)   ,
+                                [Pid_RootId]             VARCHAR (45)   ,
+                                [Pid_ImdbId]             VARCHAR (15)   ,
+                                [Pid_SeriesLink]         VARCHAR (45)   ,
+                                [Pid_EpisodeNumber]      VARCHAR (4)    ,
+                                [Pid_TitleMain]          VARCHAR (120)  ,
+                                [Pid_EpisodeTitle]       VARCHAR (120)  ,
+                                [Pid_SynopsisShort]      VARCHAR (250)  ,
+                                [Pid_SynopsisMedium]     VARCHAR (500)  ,
+                                [Pid_SynopsisLong]       VARCHAR (1000) ,
+                                [Pid_ProgramGenres]      VARCHAR (1000) ,
+                                [Pid_ParentalGuidance]   NVARCHAR (MAX) ,
+                                [Pid_CreditsList]        NVARCHAR (MAX) ,
+                                [Pid_ProgramImages]      NVARCHAR (MAX) ,
+                                [Pid_ProductionYear]     VARCHAR (4)    ,
+                                [Pid_ProductionLocation] VARCHAR (4)    ,
+                                [Pid_RowChanges]         NVARCHAR (MAX) )
+                        ) TPid 
                 ON  TPid.Pid_Crid = Pid.Pid_Crid
                 AND (
                             Pid.[Pid_TmsId]                != TPid.[Pid_TmsId]
@@ -456,7 +260,46 @@ BEGIN
                 ,TPid.[Pid_ProductionYear]
                 ,TPid.[Pid_ProductionLocation]
                 ,TPid.[Pid_RowChanges]
-	    FROM    @ProgramInformationDataTable TPid
+	    FROM    (
+                SELECT   [Pid_Crid]
+                        ,[Pid_TmsId]
+                        ,[Pid_RootId]
+                        ,[Pid_ImdbId]
+                        ,[Pid_SeriesLink]
+                        ,[Pid_EpisodeNumber]
+                        ,[Pid_TitleMain]
+                        ,[Pid_EpisodeTitle]
+                        ,[Pid_SynopsisShort]
+                        ,[Pid_SynopsisMedium]
+                        ,[Pid_SynopsisLong]
+                        ,[Pid_ProgramGenres]
+                        ,[Pid_ParentalGuidance]
+                        ,[Pid_CreditsList]
+                        ,[Pid_ProgramImages]
+                        ,[Pid_ProductionYear]
+                        ,[Pid_ProductionLocation]
+                        ,[Pid_RowChanges]
+	            FROM OPENXML (@pid, 'ArrayOfProgramInformationDataEntities/ProgramInformationDataEntities',2)
+	            WITH (  [id]                     INT            ,
+                        [Pid_Crid]               VARCHAR (45)   ,
+                        [Pid_TmsId]              VARCHAR (45)   ,
+                        [Pid_RootId]             VARCHAR (45)   ,
+                        [Pid_ImdbId]             VARCHAR (15)   ,
+                        [Pid_SeriesLink]         VARCHAR (45)   ,
+                        [Pid_EpisodeNumber]      VARCHAR (4)    ,
+                        [Pid_TitleMain]          VARCHAR (120)  ,
+                        [Pid_EpisodeTitle]       VARCHAR (120)  ,
+                        [Pid_SynopsisShort]      VARCHAR (250)  ,
+                        [Pid_SynopsisMedium]     VARCHAR (500)  ,
+                        [Pid_SynopsisLong]       VARCHAR (1000) ,
+                        [Pid_ProgramGenres]      VARCHAR (1000) ,
+                        [Pid_ParentalGuidance]   NVARCHAR (MAX) ,
+                        [Pid_CreditsList]        NVARCHAR (MAX) ,
+                        [Pid_ProgramImages]      NVARCHAR (MAX) ,
+                        [Pid_ProductionYear]     VARCHAR (4)    ,
+                        [Pid_ProductionLocation] VARCHAR (4)    ,
+                        [Pid_RowChanges]         NVARCHAR (MAX) )
+                ) TPid
             LEFT JOIN ProgramInformationData Pid ON TPid.Pid_Crid = Pid.Pid_Crid
         WHERE   Pid.Pid_Crid IS NULL
 
@@ -484,7 +327,40 @@ BEGIN
                 ,@CurrentDateTime   AS [Gid_CreatedDateTime]   
         INTO    [GroupInformationHistory]
         FROM    GroupInformationData Gid
-            LEFT JOIN @GroupInformationDataTable TGid ON TGid.Gid_GroupId = Gid.Gid_GroupId
+            LEFT JOIN   (
+                        SELECT   [Gid_GroupId]       
+                                ,[Gid_ConnectorId]   
+                                ,[Gid_Type]          
+                                ,[Gid_SeriesTitle]   
+                                ,[Gid_SeriesId]      
+                                ,[Gid_SeriesNumber]  
+                                ,[Gid_SeriesCrid]    
+                                ,[Gid_Synopsis]      
+                                ,[Gid_Genres]        
+                                ,[Gid_Language]      
+                                ,[Gid_CreditsList]   
+                                ,[Gid_SeriesImages]  
+                                ,[Gid_ProductionYear]
+                                ,[Gid_RowChanges]    
+	                    FROM OPENXML (@gid, 'ArrayOfGroupInformationDataEntities/GroupInformationDataEntities',2)
+	                    WITH (  
+                                [id]                 INT            ,
+                                [Gid_GroupId]        VARCHAR (45)   ,
+                                [Gid_ConnectorId]    VARCHAR (20)   ,
+                                [Gid_Type]           VARCHAR (45)   ,
+                                [Gid_SeriesTitle]    VARCHAR (45)   ,
+                                [Gid_SeriesId]       VARCHAR (15)   ,
+                                [Gid_SeriesNumber]   VARCHAR (15)   ,
+                                [Gid_SeriesCrid]     VARCHAR (45)   ,
+                                [Gid_Synopsis]       NVARCHAR (MAX) ,
+                                [Gid_Genres]         NVARCHAR (MAX) ,
+                                [Gid_Language]       VARCHAR (5)    ,
+                                [Gid_CreditsList]    NVARCHAR (MAX) ,
+                                [Gid_SeriesImages]   NVARCHAR (MAX) ,
+                                [Gid_ProductionYear] VARCHAR (45)   ,
+                                [Gid_RowChanges]     NVARCHAR (MAX) 
+                            )
+                        ) TGid ON TGid.Gid_GroupId = Gid.Gid_GroupId
         WHERE   TGid.Gid_GroupId IS NULL
 
         UPDATE  Gid 
@@ -523,7 +399,40 @@ BEGIN
                 ,@CurrentDateTime   AS [Gid_CreatedDateTime]   
         INTO    [GroupInformationHistory]
         FROM GroupInformationData Gid 
-            INNER JOIN @GroupInformationDataTable TGid 
+            INNER JOIN  (
+                            SELECT   [Gid_GroupId]       
+                                    ,[Gid_ConnectorId]   
+                                    ,[Gid_Type]          
+                                    ,[Gid_SeriesTitle]   
+                                    ,[Gid_SeriesId]      
+                                    ,[Gid_SeriesNumber]  
+                                    ,[Gid_SeriesCrid]    
+                                    ,[Gid_Synopsis]      
+                                    ,[Gid_Genres]        
+                                    ,[Gid_Language]      
+                                    ,[Gid_CreditsList]   
+                                    ,[Gid_SeriesImages]  
+                                    ,[Gid_ProductionYear]
+                                    ,[Gid_RowChanges]    
+	                        FROM OPENXML (@gid, 'ArrayOfGroupInformationDataEntities/GroupInformationDataEntities',2)
+	                        WITH (  
+                                    [id]                 INT            ,
+                                    [Gid_GroupId]        VARCHAR (45)   ,
+                                    [Gid_ConnectorId]    VARCHAR (20)   ,
+                                    [Gid_Type]           VARCHAR (45)   ,
+                                    [Gid_SeriesTitle]    VARCHAR (45)   ,
+                                    [Gid_SeriesId]       VARCHAR (15)   ,
+                                    [Gid_SeriesNumber]   VARCHAR (15)   ,
+                                    [Gid_SeriesCrid]     VARCHAR (45)   ,
+                                    [Gid_Synopsis]       NVARCHAR (MAX) ,
+                                    [Gid_Genres]         NVARCHAR (MAX) ,
+                                    [Gid_Language]       VARCHAR (5)    ,
+                                    [Gid_CreditsList]    NVARCHAR (MAX) ,
+                                    [Gid_SeriesImages]   NVARCHAR (MAX) ,
+                                    [Gid_ProductionYear] VARCHAR (45)   ,
+                                    [Gid_RowChanges]     NVARCHAR (MAX) 
+                                )
+                        ) TGid 
                 ON  TGid.Gid_GroupId = Gid.Gid_GroupId
                 AND (
                            Gid.[Gid_ConnectorId]        != TGid.[Gid_ConnectorId]
@@ -570,7 +479,40 @@ BEGIN
                 ,TGid.[Gid_SeriesImages]  
                 ,TGid.[Gid_ProductionYear]
                 ,TGid.[Gid_RowChanges]    
-	    FROM    @GroupInformationDataTable TGid
+	    FROM    (
+                    SELECT   [Gid_GroupId]       
+                            ,[Gid_ConnectorId]   
+                            ,[Gid_Type]          
+                            ,[Gid_SeriesTitle]   
+                            ,[Gid_SeriesId]      
+                            ,[Gid_SeriesNumber]  
+                            ,[Gid_SeriesCrid]    
+                            ,[Gid_Synopsis]      
+                            ,[Gid_Genres]        
+                            ,[Gid_Language]      
+                            ,[Gid_CreditsList]   
+                            ,[Gid_SeriesImages]  
+                            ,[Gid_ProductionYear]
+                            ,[Gid_RowChanges]    
+	                FROM OPENXML (@gid, 'ArrayOfGroupInformationDataEntities/GroupInformationDataEntities',2)
+	                WITH (  
+                            [id]                 INT            ,
+                            [Gid_GroupId]        VARCHAR (45)   ,
+                            [Gid_ConnectorId]    VARCHAR (20)   ,
+                            [Gid_Type]           VARCHAR (45)   ,
+                            [Gid_SeriesTitle]    VARCHAR (45)   ,
+                            [Gid_SeriesId]       VARCHAR (15)   ,
+                            [Gid_SeriesNumber]   VARCHAR (15)   ,
+                            [Gid_SeriesCrid]     VARCHAR (45)   ,
+                            [Gid_Synopsis]       NVARCHAR (MAX) ,
+                            [Gid_Genres]         NVARCHAR (MAX) ,
+                            [Gid_Language]       VARCHAR (5)    ,
+                            [Gid_CreditsList]    NVARCHAR (MAX) ,
+                            [Gid_SeriesImages]   NVARCHAR (MAX) ,
+                            [Gid_ProductionYear] VARCHAR (45)   ,
+                            [Gid_RowChanges]     NVARCHAR (MAX) 
+                        )
+                ) TGid
             LEFT JOIN GroupInformationData Gid ON TGid.Gid_GroupId = Gid.Gid_GroupId
         WHERE   Gid.Gid_GroupId IS NULL
 
@@ -598,11 +540,48 @@ BEGIN
                 ,@CurrentDateTime   AS [Psd_CreatedDateTime]   
         INTO    [ProgramScheduleHistory]
         FROM ProgramScheduleData Psd
-            LEFT JOIN @ProgramScheduleDataTable TPsd 
+            LEFT JOIN   (
+                            SELECT   
+                                     [Psd_ServiceIdReference] 
+                                    ,[Psd_ScheduleStart]      
+                                    ,[Psd_ScheduleEnd]        
+                                    ,[Psd_ScheduleDuration]   
+                                    ,[Psd_ProgramCrid]        
+                                    ,[Psd_ProgramImi]         
+                                    ,[Psd_PurchaseList]       
+                                    ,[Psd_CaptionLanguage]    
+                                    ,[Psd_AV_Attributes]      
+                                    ,[Psd_TmsId]              
+                                    ,[Psd_ScheduledStartTime] 
+                                    ,[Psd_ScheduledEndTime]   
+                                    ,[Psd_EventDuration]      
+                                    ,[Psd_RowChange]          
+	                        FROM OPENXML (@psd, 'ArrayOfProgramScheduleDataEntities/ProgramScheduleDataEntities',2)
+	                        WITH (  
+                                    [id]                     INT           ,
+                                    [Psd_ServiceIdReference] VARCHAR (10)  ,
+                                    [Psd_ScheduleStart]      DATETIME      ,
+                                    [Psd_ScheduleEnd]        DATETIME      ,
+                                    [Psd_ScheduleDuration]   VARCHAR (5)   ,
+                                    [Psd_ProgramCrid]        VARCHAR (45)  ,
+                                    [Psd_ProgramImi]         VARCHAR (20)  ,
+                                    [Psd_PurchaseList]       NVARCHAR (MAX),
+                                    [Psd_CaptionLanguage]    VARCHAR (5)   ,
+                                    [Psd_AV_Attributes]      NVARCHAR (MAX),
+                                    [Psd_TmsId]              VARCHAR (20)  ,
+                                    [Psd_ScheduledStartTime] DATETIME      ,
+                                    [Psd_ScheduledEndTime]   DATETIME      ,
+                                    [Psd_EventDuration]      VARCHAR (10)  ,
+                                    [Psd_RowChange]          NVARCHAR (MAX)
+                                )
+                        ) TPsd 
                 ON  TPsd.[Psd_ServiceIdReference]   = Psd.[Psd_ServiceIdReference]
                 AND TPsd.[Psd_ProgramCrid]          = Psd.[Psd_ProgramCrid]
+                AND TPsd.[Psd_ProgramImi]           = Psd.[Psd_ProgramImi]
                 AND TPsd.[Psd_ScheduleStart]        = Psd.[Psd_ScheduleStart]
                 AND TPsd.[Psd_ScheduleEnd]          = Psd.[Psd_ScheduleEnd]
+                AND TPsd.[Psd_ScheduledStartTime]   = Psd.[Psd_ScheduledStartTime]
+                AND TPsd.[Psd_ScheduledEndTime]     = Psd.[Psd_ScheduledEndTime]
         WHERE   TPsd.[Psd_ServiceIdReference] IS NULL
 
         UPDATE  Psd 
@@ -641,21 +620,55 @@ BEGIN
                 ,@CurrentDateTime   AS [Psd_CreatedDateTime]   
         INTO    [ProgramScheduleHistory]
         FROM ProgramScheduleData Psd 
-            INNER JOIN @ProgramScheduleDataTable TPsd 
+            INNER JOIN  (
+                            SELECT   
+                                     [Psd_ServiceIdReference] 
+                                    ,[Psd_ScheduleStart]      
+                                    ,[Psd_ScheduleEnd]        
+                                    ,[Psd_ScheduleDuration]   
+                                    ,[Psd_ProgramCrid]        
+                                    ,[Psd_ProgramImi]         
+                                    ,[Psd_PurchaseList]       
+                                    ,[Psd_CaptionLanguage]    
+                                    ,[Psd_AV_Attributes]      
+                                    ,[Psd_TmsId]              
+                                    ,[Psd_ScheduledStartTime] 
+                                    ,[Psd_ScheduledEndTime]   
+                                    ,[Psd_EventDuration]      
+                                    ,[Psd_RowChange]          
+	                        FROM OPENXML (@psd, 'ArrayOfProgramScheduleDataEntities/ProgramScheduleDataEntities',2)
+	                        WITH (  
+                                    [id]                     INT           ,
+                                    [Psd_ServiceIdReference] VARCHAR (10)  ,
+                                    [Psd_ScheduleStart]      DATETIME      ,
+                                    [Psd_ScheduleEnd]        DATETIME      ,
+                                    [Psd_ScheduleDuration]   VARCHAR (5)   ,
+                                    [Psd_ProgramCrid]        VARCHAR (45)  ,
+                                    [Psd_ProgramImi]         VARCHAR (20)  ,
+                                    [Psd_PurchaseList]       NVARCHAR (MAX),
+                                    [Psd_CaptionLanguage]    VARCHAR (5)   ,
+                                    [Psd_AV_Attributes]      NVARCHAR (MAX),
+                                    [Psd_TmsId]              VARCHAR (20)  ,
+                                    [Psd_ScheduledStartTime] DATETIME      ,
+                                    [Psd_ScheduledEndTime]   DATETIME      ,
+                                    [Psd_EventDuration]      VARCHAR (10)  ,
+                                    [Psd_RowChange]          NVARCHAR (MAX)
+                                )
+                        ) TPsd 
                 ON  TPsd.[Psd_ServiceIdReference]   = Psd.[Psd_ServiceIdReference]
                 AND TPsd.[Psd_ProgramCrid]          = Psd.[Psd_ProgramCrid]
+                AND TPsd.[Psd_ProgramImi]           = Psd.[Psd_ProgramImi]
                 AND TPsd.[Psd_ScheduleStart]        = Psd.[Psd_ScheduleStart]
                 AND TPsd.[Psd_ScheduleEnd]          = Psd.[Psd_ScheduleEnd]
+                AND TPsd.[Psd_ScheduledStartTime]   = Psd.[Psd_ScheduledStartTime]
+                AND TPsd.[Psd_ScheduledEndTime]     = Psd.[Psd_ScheduledEndTime]
                 AND 
                     (
                             Psd.[Psd_ScheduleDuration]         != TPsd.[Psd_ScheduleDuration]
-                        OR  Psd.[Psd_ProgramImi]               != TPsd.[Psd_ProgramImi]
                         OR  Psd.[Psd_PurchaseList]             != TPsd.[Psd_PurchaseList]
                         OR  Psd.[Psd_CaptionLanguage]          != TPsd.[Psd_CaptionLanguage]
                         OR  Psd.[Psd_AV_Attributes]            != TPsd.[Psd_AV_Attributes]
                         OR  Psd.[Psd_TmsId]                    != TPsd.[Psd_TmsId]
-                        OR  Psd.[Psd_ScheduledStartTime]       != TPsd.[Psd_ScheduledStartTime]
-                        OR  Psd.[Psd_ScheduledEndTime]         != TPsd.[Psd_ScheduledEndTime]
                         OR  Psd.[Psd_EventDuration]            != TPsd.[Psd_EventDuration]
                         OR  Psd.[Psd_RowChange]                != TPsd.[Psd_RowChange]
                     )
@@ -690,12 +703,49 @@ BEGIN
                 ,TPsd.[Psd_ScheduledEndTime]   
                 ,TPsd.[Psd_EventDuration]      
                 ,TPsd.[Psd_RowChange]          
-	    FROM    @ProgramScheduleDataTable TPsd
+	    FROM    (
+                    SELECT   
+                             [Psd_ServiceIdReference] 
+                            ,[Psd_ScheduleStart]      
+                            ,[Psd_ScheduleEnd]        
+                            ,[Psd_ScheduleDuration]   
+                            ,[Psd_ProgramCrid]        
+                            ,[Psd_ProgramImi]         
+                            ,[Psd_PurchaseList]       
+                            ,[Psd_CaptionLanguage]    
+                            ,[Psd_AV_Attributes]      
+                            ,[Psd_TmsId]              
+                            ,[Psd_ScheduledStartTime] 
+                            ,[Psd_ScheduledEndTime]   
+                            ,[Psd_EventDuration]      
+                            ,[Psd_RowChange]          
+	                FROM OPENXML (@psd, 'ArrayOfProgramScheduleDataEntities/ProgramScheduleDataEntities',2)
+	                WITH (  
+                            [id]                     INT           ,
+                            [Psd_ServiceIdReference] VARCHAR (10)  ,
+                            [Psd_ScheduleStart]      DATETIME      ,
+                            [Psd_ScheduleEnd]        DATETIME      ,
+                            [Psd_ScheduleDuration]   VARCHAR (5)   ,
+                            [Psd_ProgramCrid]        VARCHAR (45)  ,
+                            [Psd_ProgramImi]         VARCHAR (20)  ,
+                            [Psd_PurchaseList]       NVARCHAR (MAX),
+                            [Psd_CaptionLanguage]    VARCHAR (5)   ,
+                            [Psd_AV_Attributes]      NVARCHAR (MAX),
+                            [Psd_TmsId]              VARCHAR (20)  ,
+                            [Psd_ScheduledStartTime] DATETIME      ,
+                            [Psd_ScheduledEndTime]   DATETIME      ,
+                            [Psd_EventDuration]      VARCHAR (10)  ,
+                            [Psd_RowChange]          NVARCHAR (MAX)
+                        )
+                ) TPsd
             LEFT JOIN ProgramScheduleData Psd 
                 ON  TPsd.[Psd_ServiceIdReference]   = Psd.[Psd_ServiceIdReference]
                 AND TPsd.[Psd_ProgramCrid]          = Psd.[Psd_ProgramCrid]
+                AND TPsd.[Psd_ProgramImi]           = Psd.[Psd_ProgramImi]
                 AND TPsd.[Psd_ScheduleStart]        = Psd.[Psd_ScheduleStart]
                 AND TPsd.[Psd_ScheduleEnd]          = Psd.[Psd_ScheduleEnd]
+                AND TPsd.[Psd_ScheduledStartTime]   = Psd.[Psd_ScheduledStartTime]
+                AND TPsd.[Psd_ScheduledEndTime]     = Psd.[Psd_ScheduledEndTime]
         WHERE   Psd.id IS NULL
 
 		--End ProgramScheduleData insert/update/delete operation
@@ -715,7 +765,27 @@ BEGIN
                 ,@CurrentDateTime   AS [Sid_CreatedDateTime]   
         INTO    [ServiceInformationHistory]
         FROM    ServiceInformationData [Sid]
-            LEFT JOIN @ServiceInformationDataTable TSid ON TSid.[Sid_Epg_ServiceId] = [Sid].[Sid_Epg_ServiceId]
+            LEFT JOIN   (
+                            SELECT   
+                                     [Sid_ServiceName]       
+                                    ,[Sid_VM_ServiceId]      
+                                    ,[Sid_Epg_ServiceId]     
+                                    ,[Sid_ServiceLogo]       
+                                    ,[Sid_ChannelResolution] 
+                                    ,[Sid_VM_ServiceGroup]   
+                                    ,[Sid_RowChanges]        
+	                        FROM OPENXML (@sid, 'ArrayOfServiceInformationDataEntities/ServiceInformationDataEntities',2)
+	                        WITH (  
+                                    [id]                    INT          ,
+                                    [Sid_ServiceName]       VARCHAR (45) ,
+                                    [Sid_VM_ServiceId]      VARCHAR (10) ,
+                                    [Sid_Epg_ServiceId]     VARCHAR (10) ,
+                                    [Sid_ServiceLogo]       VARCHAR (250),
+                                    [Sid_ChannelResolution] VARCHAR (3)  ,
+                                    [Sid_VM_ServiceGroup]   VARCHAR (250),
+                                    [Sid_RowChanges]        VARCHAR (45) 
+                                )
+                        ) TSid ON TSid.[Sid_VM_ServiceId] = [Sid].[Sid_VM_ServiceId]
         WHERE   TSid.[Sid_Epg_ServiceId] IS NULL
 
         UPDATE  [Sid] 
@@ -740,12 +810,31 @@ BEGIN
                 ,@CurrentDateTime   AS [Sid_CreatedDateTime]   
         INTO    [ServiceInformationHistory]
         FROM ServiceInformationData [Sid]
-            INNER JOIN @ServiceInformationDataTable TSid 
-                ON  TSid.[Sid_Epg_ServiceId] = [Sid].[Sid_Epg_ServiceId]
+            INNER JOIN  (
+                            SELECT   
+                                     [Sid_ServiceName]       
+                                    ,[Sid_VM_ServiceId]      
+                                    ,[Sid_Epg_ServiceId]     
+                                    ,[Sid_ServiceLogo]       
+                                    ,[Sid_ChannelResolution] 
+                                    ,[Sid_VM_ServiceGroup]   
+                                    ,[Sid_RowChanges]        
+	                        FROM OPENXML (@sid, 'ArrayOfServiceInformationDataEntities/ServiceInformationDataEntities',2)
+	                        WITH (  
+                                    [id]                    INT          ,
+                                    [Sid_ServiceName]       VARCHAR (45) ,
+                                    [Sid_VM_ServiceId]      VARCHAR (10) ,
+                                    [Sid_Epg_ServiceId]     VARCHAR (10) ,
+                                    [Sid_ServiceLogo]       VARCHAR (250),
+                                    [Sid_ChannelResolution] VARCHAR (3)  ,
+                                    [Sid_VM_ServiceGroup]   VARCHAR (250),
+                                    [Sid_RowChanges]        VARCHAR (45) 
+                                )
+                        ) TSid 
+                ON  TSid.[Sid_VM_ServiceId] = [Sid].[Sid_VM_ServiceId]
                 AND 
                     (
                             [Sid].[Sid_ServiceName]           != TSid.[Sid_ServiceName]       
-                        OR  [Sid].[Sid_VM_ServiceId]          != TSid.[Sid_VM_ServiceId]      
                         OR  [Sid].[Sid_Epg_ServiceId]         != TSid.[Sid_Epg_ServiceId]     
                         OR  [Sid].[Sid_ServiceLogo]           != TSid.[Sid_ServiceLogo]       
                         OR  [Sid].[Sid_ChannelResolution]     != TSid.[Sid_ChannelResolution] 
@@ -769,8 +858,28 @@ BEGIN
                 ,TSid.[Sid_ChannelResolution] 
                 ,TSid.[Sid_VM_ServiceGroup]   
                 ,TSid.[Sid_RowChanges]        
-	    FROM    @ServiceInformationDataTable TSid
-            LEFT JOIN ServiceInformationData [Sid] ON TSid.[Sid_Epg_ServiceId] = [Sid].[Sid_Epg_ServiceId]
+	    FROM    (
+                    SELECT   
+                             [Sid_ServiceName]       
+                            ,[Sid_VM_ServiceId]      
+                            ,[Sid_Epg_ServiceId]     
+                            ,[Sid_ServiceLogo]       
+                            ,[Sid_ChannelResolution] 
+                            ,[Sid_VM_ServiceGroup]   
+                            ,[Sid_RowChanges]        
+	                FROM OPENXML (@sid, 'ArrayOfServiceInformationDataEntities/ServiceInformationDataEntities',2)
+	                WITH (  
+                            [id]                    INT          ,
+                            [Sid_ServiceName]       VARCHAR (45) ,
+                            [Sid_VM_ServiceId]      VARCHAR (10) ,
+                            [Sid_Epg_ServiceId]     VARCHAR (10) ,
+                            [Sid_ServiceLogo]       VARCHAR (250),
+                            [Sid_ChannelResolution] VARCHAR (3)  ,
+                            [Sid_VM_ServiceGroup]   VARCHAR (250),
+                            [Sid_RowChanges]        VARCHAR (45) 
+                        )
+                ) TSid
+            LEFT JOIN ServiceInformationData [Sid] ON TSid.[Sid_VM_ServiceId] = [Sid].[Sid_VM_ServiceId]
         WHERE   [Sid].[Sid_Epg_ServiceId] IS NULL
 
 		--End ServiceInformationData insert/update/delete operation
@@ -787,5 +896,13 @@ BEGIN
 		SELECT @ErrorMessage = ERROR_MESSAGE(), @ErrorSeverity = ERROR_SEVERITY(), @ErrorState = ERROR_STATE(), @ErrorNumber = ERROR_NUMBER()
 		RAISERROR  (@ErrorMessage,@ErrorSeverity,@ErrorState,@ErrorNumber)
 	END CATCH
+    
+	EXEC sp_xml_removedocument @pid
+    
+	EXEC sp_xml_removedocument @gid
+    
+	EXEC sp_xml_removedocument @psd
+    
+	EXEC sp_xml_removedocument @sid
 
 END

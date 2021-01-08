@@ -21,6 +21,7 @@ namespace Epg.DataAccess.Concrete
 
         public void InsertUpdate(TVADBMainEntities tVADBMainEntities)
         {
+            sql.CommandTimeout = 3600;
             sql.AddParameter("EpgFilenameGZ", tVADBMainEntities.ScheduleFileHistory.EpgFilenameGZ);
             sql.AddParameter("EpgFilenameExtracted", tVADBMainEntities.ScheduleFileHistory.EpgFilenameExtracted);
             sql.AddParameter("EpgOriginalFileSize", tVADBMainEntities.ScheduleFileHistory.EpgOriginalFileSize);
