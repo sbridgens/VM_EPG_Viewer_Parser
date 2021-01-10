@@ -17,35 +17,36 @@ namespace Epg.Entities.Concrete.XMLEntities
                 return dBMainEntities;
 
             //set List<ProgramInformationDataEntities> Programs = new List<ProgramInformationDataEntities>();
-            foreach (var t in tvaMain.ProgramDescription.ProgramInformationTable)
+            foreach (var t in tvaMain.ProgramDescription.ProgramInformationTable.ProgramInformation)
             {
                 dBMainEntities.Programs.Add(MapProgram(t));
             }
 
             //set List<GroupInformationDataEntities> Groups = new List<GroupInformationDataEntities>();
-            foreach (var t in tvaMain.ProgramDescription.GroupInformationTable)
+            foreach (var t in tvaMain.ProgramDescription.GroupInformationTable.GroupInformation)
             {
                 dBMainEntities.Groups.Add(MapGroups(t));
             }
 
             //set List<ProgramScheduleDataEntities> ProgramSchedules = new List<ProgramScheduleDataEntities>();
-            foreach (var t in tvaMain.ProgramDescription.ProgramLocationTable)
+            foreach (var t in tvaMain.ProgramDescription.ProgramLocationTable.Schedule)
             {
                 dBMainEntities.ProgramSchedules.AddRange(MapProgramSchedules(t));
             }
 
             //set List<ServiceInformationDataEntities> Services = new List<ServiceInformationDataEntities>();
-            foreach (var t in tvaMain.ProgramDescription.ServiceInformationTable)
+            foreach (TVAMainProgramDescriptionServiceInformationTableServiceInformation t in tvaMain.ProgramDescription.ServiceInformationTable.ServiceInformation)
             {
                 dBMainEntities.Services.Add(MapServices(t));
             }
             return dBMainEntities;
         }
 
-        private static ProgramInformationDataEntities MapProgram(TVAMainProgramDescriptionProgramInformation programInformation)
+        private static ProgramInformationDataEntities MapProgram(TVAMainProgramDescriptionProgramInformationTableProgramInformation programInformation)
         {
             var genreList = programInformation.BasicDescription.Genre?.Select(x => x.Name.Value).ToList();
-
+            var guidanceList = programInformation.BasicDescription.ParentalGuidance?.Select(x => x.ParentalRating)
+                .ToList();
             return new ProgramInformationDataEntities()
             {
                 Pid_Crid = programInformation.programId,
@@ -59,8 +60,10 @@ namespace Epg.Entities.Concrete.XMLEntities
                 Pid_SynopsisShort = programInformation.BasicDescription.Synopsis?.Where(x => x.length.ToLower() == "short").FirstOrDefault()?.Value,
                 Pid_SynopsisMedium = programInformation.BasicDescription.Synopsis?.Where(x => x.length.ToLower() == "medium").FirstOrDefault()?.Value,
                 Pid_SynopsisLong = programInformation.BasicDescription.Synopsis?.Where(x => x.length.ToLower() == "long").FirstOrDefault()?.Value,
-                Pid_ProgramGenres = genreList != null ? String.Join(",", genreList) : null,
-                Pid_ParentalGuidance = string.Empty,
+                Pid_ProgramGenres = genreList != null ? string.Join(",", genreList) : null,
+                Pid_ParentalGuidance = programInformation.BasicDescription.ParentalGuidance != null 
+                    ? JsonConvert.SerializeObject(programInformation.BasicDescription.ParentalGuidance)
+                    : null,
                 Pid_CreditsList = programInformation.BasicDescription.CreditsList != null ? JsonConvert.SerializeObject(programInformation.BasicDescription.CreditsList) : null,
                 Pid_ProgramImages = programInformation.BasicDescription.RelatedMaterial != null ? JsonConvert.SerializeObject(programInformation.BasicDescription.RelatedMaterial) : null,
                 Pid_ProductionYear = Convert.ToString(programInformation.BasicDescription.ProductionDate?.TimePoint),
@@ -68,7 +71,7 @@ namespace Epg.Entities.Concrete.XMLEntities
             };
         }
 
-        private static GroupInformationDataEntities MapGroups(TVAMainProgramDescriptionGroupInformation groupInformation)
+        private static GroupInformationDataEntities MapGroups(TVAMainProgramDescriptionGroupInformationTableGroupInformation groupInformation)
         {
             var synopsisList = groupInformation.BasicDescription.Synopsis?.Where(x => x.length.ToLower() == "long").Select(x => x.Value).ToList();
             var genreList = groupInformation.BasicDescription.Genre?.Select(x => x.Name.Value).ToList();
@@ -78,20 +81,20 @@ namespace Epg.Entities.Concrete.XMLEntities
                 Gid_GroupId = groupInformation.groupId,
                 Gid_ConnectorId = groupInformation.OtherIdentifier?.Where(x => x.type.ToLower() == "connectorid").FirstOrDefault()?.Value,
                 Gid_Type = groupInformation.GroupType?.value,
-                Gid_SeriesTitle = groupInformation.BasicDescription.Title?.Value,
+                Gid_SeriesTitle = groupInformation.BasicDescription.Title.FirstOrDefault()?.Value,
                 Gid_SeriesId = groupInformation.OtherIdentifier?.Where(x => x.type.ToLower() == "seriesid").FirstOrDefault()?.Value,
-                Gid_SeriesNumber = Convert.ToString(groupInformation.MemberOf?.index),
-                Gid_SeriesCrid = groupInformation.MemberOf?.crid,
-                Gid_Synopsis = synopsisList != null ? String.Join(",", synopsisList) : null,
-                Gid_Genres = genreList != null ? String.Join(",", genreList) : null,
-                Gid_Language = groupInformation.BasicDescription.Title?.lang,
+                Gid_SeriesNumber = Convert.ToString(groupInformation.MemberOf?.FirstOrDefault()?.index),
+                Gid_SeriesCrid = groupInformation.MemberOf?.FirstOrDefault()?.crid,
+                Gid_Synopsis = synopsisList != null ? string.Join(",", synopsisList) : null,
+                Gid_Genres = genreList != null ? string.Join(",", genreList) : null,
+                Gid_Language = groupInformation.BasicDescription.Title.FirstOrDefault()?.Value,
                 Gid_CreditsList = string.Empty,
                 Gid_SeriesImages = groupInformation.BasicDescription.RelatedMaterial != null ? JsonConvert.SerializeObject(groupInformation.BasicDescription.RelatedMaterial) : null,
                 Gid_ProductionYear = groupInformation.BasicDescription.ProductionDate != null ? Convert.ToString(groupInformation.BasicDescription.ProductionDate.TimePoint) : null,
             };
         }
 
-        private static List<ProgramScheduleDataEntities> MapProgramSchedules(TVAMainProgramDescriptionSchedule mainProgramDescriptionSchedule)
+        private static List<ProgramScheduleDataEntities> MapProgramSchedules(TVAMainProgramDescriptionProgramLocationTableSchedule mainProgramDescriptionSchedule)
         {
             List<ProgramScheduleDataEntities> result = new List<ProgramScheduleDataEntities>();
 
@@ -119,11 +122,11 @@ namespace Epg.Entities.Concrete.XMLEntities
             return result;
         }
 
-        private static ServiceInformationDataEntities MapServices(TVAMainProgramDescriptionServiceInformation serviceInformation)
+        private static ServiceInformationDataEntities MapServices(TVAMainProgramDescriptionServiceInformationTableServiceInformation serviceInformation)
         {
             return new ServiceInformationDataEntities()
             {
-                Sid_ServiceName = serviceInformation.Name,
+                Sid_ServiceName = serviceInformation.Name.ToString(),
                 Sid_VM_ServiceId = Convert.ToString(serviceInformation.serviceId),
                 Sid_Epg_ServiceId = string.Empty,
                 Sid_ServiceLogo = string.Empty,

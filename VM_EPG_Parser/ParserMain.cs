@@ -25,7 +25,7 @@ namespace VM_EPG_Parser
             Console.OutputEncoding = Encoding.UTF8;
             var builder = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("Config/appsettings.json", optional: true, reloadOnChange: true);
+                .AddJsonFile("Config/sb_settings.json", optional: true, reloadOnChange: true);
 
             Configuration = builder.Build();
 

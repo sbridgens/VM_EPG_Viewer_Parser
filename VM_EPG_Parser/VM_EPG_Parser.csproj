@@ -27,7 +27,12 @@
 		<None Update="Config\EPG_Parser_Config.xml">
 			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
 		</None>
+		<None Update="Config\sb_settings.json">
+		  <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</None>
 	</ItemGroup>
+
+	<ProjectExtensions><VisualStudio><UserProperties config_4sb_3settings_1json__JsonSchema="https://json.schemastore.org/appsettings" /></VisualStudio></ProjectExtensions>
 
 
 </Project>
