@@ -52,9 +52,12 @@ namespace VM_EPG_Parser
 
                 archiveOperations.ArchiveActiveFile();
                 scheduleFileHistory.EpgDateTimeArchived = DateTime.UtcNow;
-
+                Stopwatch sw = new Stopwatch();
+                sw.Start();
                 TVADBMainEntities dbMainEntity = tVAMain.GetDbEntity(scheduleFileHistory);
                 EpgDataSaveOperations.InsertUpdateEpgData(dbMainEntity);
+                sw.Stop();
+                Console.WriteLine($"Time to commit data: {sw.Elapsed}");
                 Console.WriteLine("Data inserted successfully.");
             }
             else 
