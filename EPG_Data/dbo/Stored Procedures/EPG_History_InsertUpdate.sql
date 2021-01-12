@@ -785,7 +785,7 @@ BEGIN
                                     [Sid_VM_ServiceGroup]   VARCHAR (250),
                                     [Sid_RowChanges]        VARCHAR (45) 
                                 )
-                        ) TSid ON TSid.[Sid_VM_ServiceId] = [Sid].[Sid_VM_ServiceId]
+                        ) TSid ON TSid.[Sid_Epg_ServiceId] = [Sid].[Sid_Epg_ServiceId]
         WHERE   TSid.[Sid_Epg_ServiceId] IS NULL
 
         UPDATE  [Sid] 
@@ -831,11 +831,11 @@ BEGIN
                                     [Sid_RowChanges]        VARCHAR (45) 
                                 )
                         ) TSid 
-                ON  TSid.[Sid_VM_ServiceId] = [Sid].[Sid_VM_ServiceId]
+                ON  TSid.[Sid_Epg_ServiceId] = [Sid].[Sid_Epg_ServiceId]
                 AND 
                     (
                             [Sid].[Sid_ServiceName]           != TSid.[Sid_ServiceName]       
-                        OR  [Sid].[Sid_Epg_ServiceId]         != TSid.[Sid_Epg_ServiceId]     
+                        OR  [Sid].[Sid_VM_ServiceId]          != TSid.[Sid_VM_ServiceId]     
                         OR  [Sid].[Sid_ServiceLogo]           != TSid.[Sid_ServiceLogo]       
                         OR  [Sid].[Sid_ChannelResolution]     != TSid.[Sid_ChannelResolution] 
                         OR  [Sid].[Sid_VM_ServiceGroup]       != TSid.[Sid_VM_ServiceGroup]   
@@ -879,7 +879,7 @@ BEGIN
                             [Sid_RowChanges]        VARCHAR (45) 
                         )
                 ) TSid
-            LEFT JOIN ServiceInformationData [Sid] ON TSid.[Sid_VM_ServiceId] = [Sid].[Sid_VM_ServiceId]
+            LEFT JOIN ServiceInformationData [Sid] ON TSid.[Sid_Epg_ServiceId] = [Sid].[Sid_Epg_ServiceId]
         WHERE   [Sid].[Sid_Epg_ServiceId] IS NULL
 
 		--End ServiceInformationData insert/update/delete operation

@@ -1,8 +1,8 @@
 ﻿CREATE TABLE [dbo].[ProgramInformationData] (
     [Id]                     INT            IDENTITY (1, 1) NOT NULL,
     [Pid_Crid]               VARCHAR (45)   NOT NULL,
-    [Pid_TmsId]              VARCHAR (45)   NOT NULL,
-    [Pid_RootId]             VARCHAR (45)   NOT NULL,
+    [Pid_TmsId]              VARCHAR (45)   NULL,
+    [Pid_RootId]             VARCHAR (45)   NULL,
     [Pid_ImdbId]             VARCHAR (15)   NULL,
     [Pid_SeriesLink]         VARCHAR (45)   NULL,
     [Pid_EpisodeNumber]      VARCHAR (4)    NULL,
