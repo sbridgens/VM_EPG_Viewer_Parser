@@ -26,15 +26,15 @@ namespace Epg.DataAccess.Concrete
             sql.AddParameter("EpgFilenameExtracted", tVADBMainEntities.ScheduleFileHistory.EpgFilenameExtracted);
             sql.AddParameter("EpgOriginalFileSize", tVADBMainEntities.ScheduleFileHistory.EpgOriginalFileSize);
             sql.AddParameter("EpgExtractedFileSize", tVADBMainEntities.ScheduleFileHistory.EpgExtractedFileSize);
-            sql.AddParameter("EpgDateTimeRetrieved", tVADBMainEntities.ScheduleFileHistory.EpgDateTimeRetrieved);
-            sql.AddParameter("EpgDateTimeParsed", tVADBMainEntities.ScheduleFileHistory.EpgDateTimeParsed);
-            sql.AddParameter("EpgDateTimeArchived", tVADBMainEntities.ScheduleFileHistory.EpgDateTimeArchived);
+            sql.AddParameter("EpgDateTimeRetrieved", DbType.DateTime, ParameterDirection.Input, tVADBMainEntities.ScheduleFileHistory.EpgDateTimeRetrieved);
+            sql.AddParameter("EpgDateTimeParsed", DbType.DateTime, ParameterDirection.Input, tVADBMainEntities.ScheduleFileHistory.EpgDateTimeParsed);
+            sql.AddParameter("EpgDateTimeArchived", DbType.DateTime, ParameterDirection.Input, tVADBMainEntities.ScheduleFileHistory.EpgDateTimeArchived);
             sql.AddParameter("EpgArchiveLocation", tVADBMainEntities.ScheduleFileHistory.EpgArchiveLocation);
             sql.AddParameter("GroupInformationData", tVADBMainEntities.Groups.ToXML());
             sql.AddParameter("ProgramInformationData", tVADBMainEntities.Programs.ToXML());
             sql.AddParameter("ProgramScheduleData", tVADBMainEntities.ProgramSchedules.ToXML());
             sql.AddParameter("ServiceInformationData", tVADBMainEntities.Services.ToXML());
-            sql.AddParameter("CurrentDateTime", DateTime.UtcNow);
+            sql.AddParameter("CurrentDateTime", DbType.DateTime, ParameterDirection.Input, DateTime.UtcNow);
             sql.ExecuteNonQuery("EPG_History_InsertUpdate", CommandType.StoredProcedure);
         }
 
