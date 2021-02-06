@@ -6,7 +6,7 @@ using System.Xml.Serialization;
 namespace Epg.Configuration.Manager.Schema.VM_EPG_Parser
 {
 	[XmlRoot(ElementName = "EpgArchive")]
-	public class EpgArchive
+	public class EpgArchive1
 	{
 		[XmlAttribute(AttributeName = "enableArchive")]
 		public static bool EnableArchive { get; set; }
@@ -15,7 +15,7 @@ namespace Epg.Configuration.Manager.Schema.VM_EPG_Parser
 	}
 
 	[XmlRoot(ElementName = "ProxyInfo")]
-	public class ProxyInfo
+	public class ProxyInfo1
 	{
 		[XmlElement(ElementName = "ProxyType")]
 		public static string ProxyType { get; set; }
@@ -37,7 +37,7 @@ namespace Epg.Configuration.Manager.Schema.VM_EPG_Parser
 	}
 
 	[XmlRoot(ElementName = "EPG_Parser_Config")]
-	public class EPG_Parser_Config
+	public class EPG_Parser_Config1
 	{
 		[XmlElement(ElementName = "LocalWorkingDirectory")]
 		public static string LocalWorkingDirectory { get; set; }
@@ -46,7 +46,7 @@ namespace Epg.Configuration.Manager.Schema.VM_EPG_Parser
 		public static string EpgDownloadDirectory { get; set; }
 		
 		[XmlElement(ElementName = "EpgArchive")]
-		public EpgArchive EpgArchive { get; set; }
+		public EpgArchive1 EpgArchive { get; set; }
 		[XmlElement(ElementName = "FailedToParseDirectory")]
 		public static string FailedToParseDirectory { get; set; }
 
@@ -72,7 +72,7 @@ namespace Epg.Configuration.Manager.Schema.VM_EPG_Parser
 		public static string SftpRoot { get; set; }
 
 		[XmlElement(ElementName = "ProxyInfo")]
-		public ProxyInfo ProxyInfo { get; set; }
+		public ProxyInfo1 ProxyInfo { get; set; }
 
 		[XmlElement(ElementName = "DownloadFilesOfType")]
 		public static string DownloadFilesOfType { get; set; }

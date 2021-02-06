@@ -2,21 +2,21 @@
 <EPG_Parser_Config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <!-- Directory Settings -->
   <!-- Working directory where active epg file is stored and used -->
-  <LocalWorkingDirectory>D:\VmEpgTesting\EpgActive\</LocalWorkingDirectory>
+  <LocalWorkingDirectory>E:\Karan\Projects\ReactJs\EpgActive\</LocalWorkingDirectory>
   <!-- Download Directory -->
-  <EpgDownloadDirectory>D:\VmEpgTesting\temp\</EpgDownloadDirectory>
+  <EpgDownloadDirectory>E:\Karan\Projects\ReactJs\temp_download\</EpgDownloadDirectory>
   <!-- if false downloaded file will be deleted once parsed else moved to archive location-->
-  <EpgArchive enableArchive="true">D:\VmEpgTesting\Archive\</EpgArchive>
-  <FailedToParseDirectory>D:\VmEpgTesting\Failed\</FailedToParseDirectory>
+  <EpgArchive enableArchive="true">E:\Karan\Projects\ReactJs\Archive\</EpgArchive>
+  <FailedToParseDirectory>E:\Karan\Projects\ReactJs\Failed\</FailedToParseDirectory>
 
   <!-- SFTP Settings -->
-  <SftpHost>airflow-sftp.horizongo.eu</SftpHost>
+  <SftpHost>192.168.1.8</SftpHost>
   <SftpPort>22</SftpPort>
-  <SftpKeyFile>D:\VmEpgTesting\.ssh\id_rsa.ppk</SftpKeyFile>
-  <SshHostKeyFingerprint>ssh-rsa 2048 ad:47:1c:0c:cf:9b:7c:a6:8d:af:7b:2b:69:e5:4b:57</SshHostKeyFingerprint>
-  <SftpUserName>uk_hzn4</SftpUserName>
-  <SftpKeyOrUserPassword></SftpKeyOrUserPassword>
-  <SftpRoot>/airflow-country-access/uk_hzn4/Linear/TVA/uk_hzn4</SftpRoot>
+  <SftpKeyFile></SftpKeyFile>
+  <SshHostKeyFingerprint>ssh-rsa 3072 z9srVZqQf46QYHhWejtD8FilpZDj0RQEbcQTgVfYg1s=</SshHostKeyFingerprint>
+  <SftpUserName>psc\admin</SftpUserName>
+  <SftpKeyOrUserPassword>Psc2020$@</SftpKeyOrUserPassword>
+  <SftpRoot>e:/Karan/Projects/ReactJs/Parser_data</SftpRoot>
   
   <!-- Proxy Config-->
   <ProxyInfo useProxy="false">

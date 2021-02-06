@@ -32,35 +32,35 @@ namespace Epg.Configuration.Manager.Concrete
                     switch (ele.Name.LocalName)
                     {
                         case "SftpPort":
-                            EPG_Parser_Config.SftpPort = Convert.ToInt32(ele.Value);
+                            EPG_Parser_Config1.SftpPort = Convert.ToInt32(ele.Value);
                             break;
                         case "DbPort":
-                            EPG_Parser_Config.DbPort = Convert.ToInt32(ele.Value);
+                            EPG_Parser_Config1.DbPort = Convert.ToInt32(ele.Value);
                             break;
                         case "EpgArchive":
-                            EpgArchive.EnableArchive = Convert.ToBoolean(ele.Attribute("enableArchive")?.Value);
-                            EpgArchive.EpgArchiveDirectory = ele.Value;
+                            EpgArchive1.EnableArchive = Convert.ToBoolean(ele.Attribute("enableArchive")?.Value);
+                            EpgArchive1.EpgArchiveDirectory = ele.Value;
                             break;
                         case "ProxyInfo":
-                            ProxyInfo.UseProxy = Convert.ToBoolean(ele.Attribute("useProxy")?.Value);
+                            ProxyInfo1.UseProxy = Convert.ToBoolean(ele.Attribute("useProxy")?.Value);
                             foreach (var pval in ele.Descendants())
                             {
                                 switch (pval.Name.LocalName)
                                 {
                                     case "ProxyType":
-                                        ProxyInfo.ProxyType = pval.Value;
+                                        ProxyInfo1.ProxyType = pval.Value;
                                         break;
                                     case "ProxyHost":
-                                        ProxyInfo.ProxyHost = pval.Value;
+                                        ProxyInfo1.ProxyHost = pval.Value;
                                         break;
                                     case "ProxyUsername":
-                                        ProxyInfo.ProxyUsername = pval.Value;
+                                        ProxyInfo1.ProxyUsername = pval.Value;
                                         break;
                                     case "ProxyPassword":
-                                        ProxyInfo.ProxyPassword = pval.Value;
+                                        ProxyInfo1.ProxyPassword = pval.Value;
                                         break;
                                     case "ProxyPort":
-                                        ProxyInfo.ProxyPort = !string.IsNullOrEmpty(pval.Value)
+                                        ProxyInfo1.ProxyPort = !string.IsNullOrEmpty(pval.Value)
                                             ? Convert.ToInt32(pval.Value)
                                             : 0;
                                         break;
