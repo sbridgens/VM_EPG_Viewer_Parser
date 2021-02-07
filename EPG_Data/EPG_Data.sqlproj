@@ -75,6 +75,7 @@
     <Build Include="dbo\Tables\ServiceInformationHistory.sql" />
     <Build Include="dbo\Stored Procedures\EPG_History_InsertUpdate.sql" />
     <Build Include="dbo\Stored Procedures\EPG_History_InsertUpdate_old.sql" />
+    <Build Include="dbo\Stored Procedures\EPG_ProgramData_Get.sql" />
     <Build Include="dbo\Stored Procedures\EPG_ProgramSchedule_GetAll.sql" />
     <Build Include="dbo\Stored Procedures\EPG_Service_GetAll.sql" />
     <Build Include="dbo\Stored Procedures\EPG_User_Register.sql" />
