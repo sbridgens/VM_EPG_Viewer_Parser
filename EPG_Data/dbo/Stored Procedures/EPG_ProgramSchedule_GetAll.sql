@@ -2,7 +2,7 @@
 	@Date DATE
 AS
 BEGIN
-	SELECT			PID.Id,
+	SELECT			PID.Id Pid_Id,
 					PID.Pid_Crid,
 					PID.Pid_TmsId,
 					PID.Pid_RootId,
@@ -23,9 +23,25 @@ BEGIN
 					PSD.Psd_CaptionLanguage,
 					PSD.Psd_ScheduledStartTime,
 					PSD.Psd_ScheduledEndTime,
-					PSD.Psd_EventDuration
+					PSD.Psd_EventDuration,
+
+					GID.Gid_ConnectorId,
+					GID.Gid_Language,
+					GID.Gid_Type,
+					GID.Gid_SeriesImages,
+					GID.Gid_Genres
 	FROM			DBO.ProgramInformationData PID
 		INNER JOIN	DBO.ProgramScheduleData PSD
 			ON		PID.Pid_Crid = PSD.Psd_ProgramCrid 
 					AND CONVERT(DATE, PSD.Psd_ScheduledStartTime) = @Date
+		LEFT JOIN	(SELECT 
+						MAX(Pid_Action) Pid_Action, 
+						Pid_ParentId, 
+						MAX(Pid_CreatedDateTime) Pid_CreatedDateTime 
+					FROM DBO.ProgramInformationHistory 
+					WHERE Pid_Action = 'U' GROUP BY Pid_ParentId) PIH
+			ON		PIH.Pid_ParentId = PID.Id
+		LEFT JOIN 
+					DBO.GroupInformationData AS GID
+			ON GID.Gid_SeriesCrid=PID.Pid_SeriesLink
 END

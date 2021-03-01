@@ -20,7 +20,7 @@ namespace VM_EPG_Parser
             Stopwatch watch = new Stopwatch();
             watch.Start();
 
-            Console.WriteLine("Loading Config file.");
+            Console.WriteLine($"Loading Config file.");
 
             Console.OutputEncoding = Encoding.UTF8;
             var builder = new ConfigurationBuilder()

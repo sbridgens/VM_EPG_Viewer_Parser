@@ -21,8 +21,9 @@ namespace VM_EPG_Parser.WorkflowItems
                     UserName = AppSettings.SftpUserName,
                     Password = AppSettings.SftpKeyOrUserPassword,
                     PortNumber = AppSettings.SftpPort,
-                    SshHostKeyFingerprint = AppSettings.SshHostKeyFingerprint,
-                    SshPrivateKeyPath = AppSettings.SftpKeyFile
+                    //SshHostKeyFingerprint = AppSettings.SshHostKeyFingerprint,
+                    //SshPrivateKeyPath = AppSettings.SftpKeyFile,
+                    GiveUpSecurityAndAcceptAnySshHostKey = true
                 }
             };
 
