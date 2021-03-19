@@ -990,6 +990,7 @@ namespace Epg.Entities.Concrete.XMLEntities
         private string mediaTimePointField;
 
         /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Namespace = "urn:tva:mpeg7:2008")]
         public string MediaUri
         {
             get
@@ -1045,6 +1046,7 @@ namespace Epg.Entities.Concrete.XMLEntities
         private TitleVideoMediaTime mediaTimeField;
 
         /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Namespace = "urn:tva:mpeg7:2008")]
         public string MediaUri
         {
             get
@@ -1138,6 +1140,7 @@ namespace Epg.Entities.Concrete.XMLEntities
         private TitleAudioMediaTime mediaTimeField;
 
         /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(Namespace = "urn:tva:mpeg7:2008")]
         public string MediaUri
         {
             get
@@ -3748,7 +3751,7 @@ namespace Epg.Entities.Concrete.XMLEntities
         private string streamIDField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Namespace = "")]
+        [System.Xml.Serialization.XmlElementAttribute(Namespace = "urn:tva:mpeg7:2008")]
         public string MediaUri
         {
             get
@@ -3884,7 +3887,7 @@ namespace Epg.Entities.Concrete.XMLEntities
         private string streamIDField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Namespace = "")]
+        [System.Xml.Serialization.XmlElementAttribute(Namespace = "urn:tva:mpeg7:2008")]
         public string MediaUri
         {
             get
@@ -7547,7 +7550,7 @@ namespace Epg.Entities.Concrete.XMLEntities
     /// <remarks/>
     [System.SerializableAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "")]
+    [System.Xml.Serialization.XmlTypeAttribute(TypeName = "EpisodeOfType", Namespace = "")]
     public partial class TVAMainProgramDescriptionProgramInformationTableProgramInformationEpisodeOf
     {
 
@@ -7951,7 +7954,7 @@ namespace Epg.Entities.Concrete.XMLEntities
     /// <remarks/>
     [System.SerializableAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "")]
+    [System.Xml.Serialization.XmlTypeAttribute(TypeName = "ProgramGroupTypeType", Namespace = "")]
     public partial class TVAMainProgramDescriptionGroupInformationTableGroupInformationGroupType
     {
 
@@ -10586,7 +10589,7 @@ namespace Epg.Entities.Concrete.XMLEntities
         private string streamIDField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Namespace = "")]
+        [System.Xml.Serialization.XmlElementAttribute(Namespace = "urn:tva:mpeg7:2008")]
         public string MediaUri
         {
             get
@@ -10722,7 +10725,7 @@ namespace Epg.Entities.Concrete.XMLEntities
         private string streamIDField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Namespace = "")]
+        [System.Xml.Serialization.XmlElementAttribute(Namespace = "urn:tva:mpeg7:2008")]
         public string MediaUri
         {
             get
@@ -11876,7 +11879,7 @@ namespace Epg.Entities.Concrete.XMLEntities
     /// <remarks/>
     [System.SerializableAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(AnonymousType = true, Namespace = "")]
+    [System.Xml.Serialization.XmlTypeAttribute(TypeName = "MemberOfType", Namespace = "")]
     public partial class TVAMainProgramDescriptionGroupInformationTableGroupInformationMemberOf
     {
 
@@ -15856,7 +15859,7 @@ namespace Epg.Entities.Concrete.XMLEntities
         private string streamIDField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Namespace = "")]
+        [System.Xml.Serialization.XmlElementAttribute(Namespace = "urn:tva:mpeg7:2008")]
         public string MediaUri
         {
             get
@@ -15992,7 +15995,7 @@ namespace Epg.Entities.Concrete.XMLEntities
         private string streamIDField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Namespace = "")]
+        [System.Xml.Serialization.XmlElementAttribute(Namespace = "urn:tva:mpeg7:2008")]
         public string MediaUri
         {
             get
@@ -16486,7 +16489,7 @@ namespace Epg.Entities.Concrete.XMLEntities
         private string mediaUriField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Namespace = "")]
+        [System.Xml.Serialization.XmlElementAttribute(Namespace = "urn:tva:mpeg7:2008")]
         public string MediaUri
         {
             get
@@ -16613,7 +16616,7 @@ namespace Epg.Entities.Concrete.XMLEntities
         private string mediaUriField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Namespace = "")]
+        [System.Xml.Serialization.XmlElementAttribute(Namespace = "urn:tva:mpeg7:2008")]
         public string MediaUri
         {
             get

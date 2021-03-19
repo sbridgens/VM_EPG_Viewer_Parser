@@ -37,10 +37,10 @@ namespace Epg.Entities.Concrete.XMLEntities
             }
 
             //set List<ServiceInformationDataEntities> Services = new List<ServiceInformationDataEntities>();
-            foreach (TVAMainProgramDescriptionServiceInformationTableServiceInformation t in tvaMain.ProgramDescription.ServiceInformationTable.ServiceInformation)
-            {
-                dBMainEntities.Services.Add(MapServices(t));
-            }
+            //foreach (TVAMainProgramDescriptionServiceInformationTableServiceInformation t in tvaMain.ProgramDescription.ServiceInformationTable.ServiceInformation)
+            //{
+            //    dBMainEntities.Services.Add(MapServices(t));
+            //}
             return dBMainEntities;
         }
 

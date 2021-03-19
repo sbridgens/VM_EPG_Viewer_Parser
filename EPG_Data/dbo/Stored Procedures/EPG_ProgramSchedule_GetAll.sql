@@ -29,7 +29,9 @@ BEGIN
 					GID.Gid_Language,
 					GID.Gid_Type,
 					GID.Gid_SeriesImages,
-					GID.Gid_Genres
+					GID.Gid_Genres,
+
+					PGID.Gid_SeriesImages PGid_SeriesImages 
 	FROM			DBO.ProgramInformationData PID
 		INNER JOIN	DBO.ProgramScheduleData PSD
 			ON		PID.Pid_Crid = PSD.Psd_ProgramCrid 
@@ -43,5 +45,8 @@ BEGIN
 			ON		PIH.Pid_ParentId = PID.Id
 		LEFT JOIN 
 					DBO.GroupInformationData AS GID
-			ON GID.Gid_SeriesCrid=PID.Pid_SeriesLink
+			ON GID.Gid_GroupId=PID.Pid_SeriesLink
+		LEFT JOIN 
+					DBO.GroupInformationData AS PGID
+			ON PGID.Gid_GroupId = GID.Gid_SeriesCrid
 END
