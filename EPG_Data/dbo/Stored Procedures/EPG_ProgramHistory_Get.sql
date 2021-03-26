@@ -12,6 +12,7 @@ BEGIN
 					PIH.Pid_TitleMain,
 					PIH.Pid_EpisodeTitle,
 					PIH.Pid_SynopsisShort,
+					PIH.Pid_SynopsisMedium,
 					PIH.Pid_SynopsisLong,
 					PIH.Pid_ProgramGenres,
 					PIH.Pid_ProgramImages,

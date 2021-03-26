@@ -2261,7 +2261,7 @@ namespace Epg.Entities.Concrete.XMLEntities
         private string langField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Namespace = "")]
+        [System.Xml.Serialization.XmlElementAttribute(Namespace = "urn:tva:mpeg7:2008")]
         public GivenName GivenName
         {
             get
@@ -2275,7 +2275,7 @@ namespace Epg.Entities.Concrete.XMLEntities
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Namespace = "")]
+        [System.Xml.Serialization.XmlElementAttribute(Namespace = "urn:tva:mpeg7:2008")]
         public LinkingName LinkingName
         {
             get
@@ -2289,7 +2289,7 @@ namespace Epg.Entities.Concrete.XMLEntities
         }
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Namespace = "")]
+        [System.Xml.Serialization.XmlElementAttribute(Namespace = "urn:tva:mpeg7:2008")]
         public FamilyName FamilyName
         {
             get
@@ -8865,7 +8865,7 @@ namespace Epg.Entities.Concrete.XMLEntities
         private TVAMainProgramDescriptionGroupInformationTableGroupInformationBasicDescriptionParentalGuidanceExplanatoryText[] explanatoryTextField;
 
         /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(Namespace = "")]
+        [System.Xml.Serialization.XmlElementAttribute(Namespace = "urn:tva:mpeg7:2008")]
         public ParentalRating ParentalRating
         {
             get

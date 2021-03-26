@@ -12,6 +12,7 @@ BEGIN
 					PID.Pid_TitleMain,
 					PID.Pid_EpisodeTitle,
 					PID.Pid_SynopsisShort,
+					PID.Pid_SynopsisMedium,
 					PID.Pid_SynopsisLong,
 					PID.Pid_ProgramGenres,
 					PID.Pid_ProgramImages,
@@ -24,12 +25,22 @@ BEGIN
 					PSD.Psd_ScheduledStartTime,
 					PSD.Psd_ScheduledEndTime,
 					PSD.Psd_EventDuration,
+					PSD.Psd_ScheduleStart,
+					PSD.Psd_ScheduleEnd,
+					PSD.Psd_ScheduleDuration,
+					PSD.Psd_PurchaseList,
+					PSD.Psd_AV_Attributes,
+					PSD.Psd_TmsId,
 
 					GID.Gid_ConnectorId,
 					GID.Gid_Language,
 					GID.Gid_Type,
 					GID.Gid_SeriesImages,
+					GID.Gid_SeriesNumber,
+					GID.Gid_SeriesTitle,
 					GID.Gid_Genres,
+					GID.Gid_Synopsis,
+					GID.Gid_ProductionYear,
 
 					PGID.Gid_SeriesImages PGid_SeriesImages 
 	FROM			DBO.ProgramInformationData PID
