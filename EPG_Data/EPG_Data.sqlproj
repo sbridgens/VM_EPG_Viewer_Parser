@@ -81,5 +81,7 @@
     <Build Include="dbo\Stored Procedures\EPG_User_SelectPasswordSalt.sql" />
     <Build Include="dbo\Stored Procedures\EPG_User_ValidateLogin.sql" />
     <Build Include="dbo\Stored Procedures\EPG_ProgramHistory_Get.sql" />
+    <Build Include="dbo\Stored Procedures\EPG_Service_Filter.sql" />
+    <Build Include="dbo\fn_Split.sql" />
   </ItemGroup>
 </Project>
